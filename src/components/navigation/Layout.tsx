@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  AppBar,
   Box,
-  Toolbar,
-  IconButton,
-  Typography,
   Drawer,
   List,
   ListItemButton,
@@ -12,7 +8,7 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { TopNavBar } from './TopNavBar'
 
 export const Layout = ({
   label,
@@ -28,34 +24,25 @@ export const Layout = ({
   };
   const topNavActions = navigationActions.filter((a) => a.position === "top");
   const leftNavActions = navigationActions.filter((a) => a.position !== "top");
-  const appBarNavigationActions = AppBarNavigationActions({
-    topNavActions,
-    navClickHandler,
-    selectedNav,
-  });
 
   return (
     <Box sx={{ display: "flex", flexGrow: 1 }} aria-label="Base application">
-      <AppBar
-        position="absolute"
-        sx={{
-          left: open ? "200px" : "64px",
-        }}
-      >
-        <Toolbar>
-          <NavDrawer
-            leftNavigationActions={leftNavActions}
-            leftNavigationClick={navClickHandler}
-            selectedNav={selectedNav}
-            open={open}
-            setOpen={setOpen}
-          />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {label}
-          </Typography>
-          {appBarNavigationActions}
-        </Toolbar>
-      </AppBar>
+
+      <TopNavBar
+        topNavActions={topNavActions}
+        navClickHandler={navClickHandler}
+        selectedNav={selectedNav}
+        label={label}
+      />
+
+      <NavDrawer
+        leftNavigationActions={leftNavActions}
+        leftNavigationClick={navClickHandler}
+        selectedNav={selectedNav}
+        open={open}
+        setOpen={setOpen}
+      />
+
       <Box
         sx={{
           marginTop: "64px",
@@ -63,29 +50,10 @@ export const Layout = ({
         }}
       >
         {children}
+
       </Box>
     </Box>
   );
-};
-
-const AppBarNavigationActions = ({
-  topNavActions = [],
-  navClickHandler = () => {},
-  selectedNav = {},
-}: AppBarNavigationActionsProps) => {
-  return topNavActions.map((a) => {
-    const clickHandler = () => navClickHandler(a);
-    const selected = a.key === selectedNav.key;
-    return (
-      <IconButton
-        color={selected ? "secondary" : "inherit"}
-        key={a.key}
-        onClick={clickHandler}
-      >
-        {a.icon}
-      </IconButton>
-    );
-  });
 };
 
 const NavDrawer = ({
@@ -106,22 +74,16 @@ const NavDrawer = ({
 
   return (
     <React.Fragment>
-      <IconButton
-        onClick={handleOpen}
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="Navigation menu"
-        sx={{ mr: 2 }}
-      >
-        <Menu />
-      </IconButton>
+
       <Drawer
         anchor="left"
-        open={open}
+        //open={true}
         onClose={handleClose}
         aria-label="Navigation drawer"
-        variant="permanent"
+        variant={"permanent"}
+        sx={{
+          zIndex: 0
+        }}
       >
         <List
           className="ListContainer"
@@ -211,10 +173,4 @@ interface NavigationListProps {
   navigationClick: Function;
   selectedNav: NavigationAction;
   handleClose: Function;
-}
-
-interface AppBarNavigationActionsProps {
-  topNavActions?: Array<NavigationAction>;
-  navClickHandler?: Function;
-  selectedNav?: NavigationAction;
 }
