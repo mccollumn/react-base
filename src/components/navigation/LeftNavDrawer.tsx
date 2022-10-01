@@ -8,8 +8,8 @@ import {
   ListItemText,
   Divider,
   IconButton,
+  Collapse
 } from "@mui/material";
-// ChevronLeftIcon
 import { NavigationAction } from './Layout';
 
 export const LeftNavDrawer = ({
@@ -21,55 +21,68 @@ export const LeftNavDrawer = ({
   children,
 }: any) => {
   return (
+
     <Drawer
       anchor="left"
       aria-label="Navigation drawer"
       variant={"permanent"}
       sx={{
-        zIndex: 0
+        zIndex: 0,
       }}
     >
 
-      <Box
+      <Collapse
         sx={{
-          height: 64,
-          display: 'flex',
-          justifyContent: 'flex-end',
-          alignItems: 'center'
-        }}>
-
-        <IconButton
-          onClick={collapseNav}
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="Navigation menu"
-          sx={{
-            height: 48
-          }}
-        >
-          <ChevronLeft />
-        </IconButton>
-
-      </Box>
-
-      <Divider />
-
-      <List
-        className="ListContainer"
-        sx={{
-          width: open ? "200px" : "64px",
-          overflowX: "hidden",
+          width: '200px'
         }}
-        aria-label="Navigation list"
-      >
-        <NavigationList
-          navigationActions={leftNavigationActions}
-          navigationClick={leftNavigationClick}
-          selectedNav={selectedNav}
-        />
-      </List>
-      {children}
+        orientation="horizontal"
+        in={open}
+        collapsedSize={64}>
+
+        <Box
+          sx={{
+            height: 64,
+            width: '200px',
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center'
+          }}>
+
+          <IconButton
+            onClick={collapseNav}
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="Navigation menu"
+            sx={{
+              height: 48
+            }}
+          >
+            <ChevronLeft />
+          </IconButton>
+
+        </Box>
+
+        <Divider />
+
+        <List
+          className="ListContainer"
+          sx={{
+            //width: open ? "200px" : "64px",
+            overflowX: "hidden",
+          }}
+          aria-label="Navigation list"
+        >
+          <NavigationList
+            navigationActions={leftNavigationActions}
+            navigationClick={leftNavigationClick}
+            selectedNav={selectedNav}
+          />
+        </List>
+        {children}
+
+      </Collapse>
+
     </Drawer>
   );
 }

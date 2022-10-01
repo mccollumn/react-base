@@ -24,10 +24,13 @@ export const TopNavBar = ({
   return (
     <AppBar
       sx={{
-        width: open ? 'calc(100% - 200px)' : '100%'
+        width: open ? 'calc(100% - 200px)' : '100%',
       }}>
 
-      <Toolbar>
+      <Toolbar
+        sx={{
+          height: 64
+        }}>
 
         <IconButton
           onClick={expandNav}
