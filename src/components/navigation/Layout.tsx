@@ -9,6 +9,7 @@ import {
   Divider,
 } from "@mui/material";
 import { TopNavBar } from './TopNavBar'
+import { LeftNavDrawer } from './LeftNavDrawer'
 
 export const Layout = ({
   label,
@@ -46,12 +47,12 @@ export const Layout = ({
         open={open}
       />
 
-      <NavDrawer
+      <LeftNavDrawer
         leftNavigationActions={leftNavActions}
         leftNavigationClick={navClickHandler}
         selectedNav={selectedNav}
         open={open}
-        setOpen={setOpen}
+        collapseNav={collapseNav}
       />
 
       <Box
@@ -65,80 +66,6 @@ export const Layout = ({
       </Box>
     </Box>
   );
-};
-
-const NavDrawer = ({
-  leftNavigationActions = [],
-  leftNavigationClick,
-  selectedNav,
-  open,
-  children,
-}: any) => {
-
-  return (
-    <React.Fragment>
-
-      <Drawer
-        anchor="left"
-        //open={true}
-        aria-label="Navigation drawer"
-        variant={"permanent"}
-        sx={{
-          zIndex: 0
-        }}
-      >
-        <List
-          className="ListContainer"
-          sx={{
-            width: open ? "200px" : "64px",
-            overflowX: "hidden",
-          }}
-          aria-label="Navigation list"
-        >
-          <NavigationList
-            navigationActions={leftNavigationActions}
-            navigationClick={leftNavigationClick}
-            selectedNav={selectedNav}
-          />
-        </List>
-        {children}
-      </Drawer>
-    </React.Fragment>
-  );
-};
-
-const NavigationList = ({
-  navigationActions = [],
-  navigationClick = () => {},
-  selectedNav,
-  handleClose,
-}: NavigationListProps): any => {
-  return navigationActions.map((action, index) => {
-    const handleClick = () => {
-      navigationClick(action);
-      handleClose();
-    };
-    if (action.divider) {
-      return <Divider key={index} />;
-    }
-    if (action.Component) {
-      return <ComponentOverride component={action.Component} key={index} />;
-    }
-    return (
-      <ListItemButton
-        selected={action.key === selectedNav?.key}
-        key={index}
-        onClick={handleClick}
-      >
-        <ListItemIcon>{action.icon}</ListItemIcon>
-        <ListItemText>{action.label}</ListItemText>
-      </ListItemButton>
-    );
-  });
-};
-
-const ComponentOverride = ({ component }: any) => {
-  return <div>{component}</div>;
 };
 
 interface LayoutProps {
@@ -167,11 +94,4 @@ export interface NavigationAction {
    * Render component instead of drawer menu item
    */
   Component?: React.ReactElement | null;
-}
-
-interface NavigationListProps {
-  navigationActions: Array<NavigationAction>;
-  navigationClick: Function;
-  selectedNav: NavigationAction;
-  handleClose: Function;
 }

@@ -35,6 +35,10 @@ export const TopNavBar = ({
           edge="start"
           color="inherit"
           aria-label="Navigation menu"
+          sx={{
+            display: open ? 'none' : 'block',
+            height: 48
+          }}
         >
           <Menu />
         </IconButton>
