@@ -12,10 +12,7 @@ import logo from "../../logo.svg";
 import { Layout, NavigationAction } from "./Layout";
 
 const defaultNavActions: Array<NavigationAction> = [
-  {
-    Component: <Logo />,
-  },
-  { divider: true },
+
   {
     key: "Profiles",
     label: "Profiles",
@@ -30,6 +27,11 @@ const defaultNavActions: Array<NavigationAction> = [
     ariaLabel: "Reports",
     path: "/reports",
   },
+  { divider: true },
+  {
+    Component: <Logo />,
+  },
+  { divider: true },
   {
     key: "Notifications",
     label: "Notifications",

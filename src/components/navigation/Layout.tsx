@@ -16,8 +16,12 @@ export const Layout = ({
   leftNavigationClick = () => {},
   children,
 }: LayoutProps) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [selectedNav, setSelectedNav]: any = React.useState();
+
+  const expandNav = () => setOpen(true);
+  const collapseNav = () => setOpen(false);
+
   const navClickHandler = (action: NavigationAction) => {
     setSelectedNav(action);
     leftNavigationClick(action);
@@ -26,13 +30,20 @@ export const Layout = ({
   const leftNavActions = navigationActions.filter((a) => a.position !== "top");
 
   return (
-    <Box sx={{ display: "flex", flexGrow: 1 }} aria-label="Base application">
+    <Box
+      sx={{
+        display: "flex",
+        flexGrow: 1
+      }}
+      aria-label="Base application">
 
       <TopNavBar
         topNavActions={topNavActions}
         navClickHandler={navClickHandler}
         selectedNav={selectedNav}
         label={label}
+        expandNav={expandNav}
+        open={open}
       />
 
       <NavDrawer
@@ -61,16 +72,8 @@ const NavDrawer = ({
   leftNavigationClick,
   selectedNav,
   open,
-  setOpen,
   children,
 }: any) => {
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <React.Fragment>
@@ -78,7 +81,6 @@ const NavDrawer = ({
       <Drawer
         anchor="left"
         //open={true}
-        onClose={handleClose}
         aria-label="Navigation drawer"
         variant={"permanent"}
         sx={{
@@ -97,7 +99,6 @@ const NavDrawer = ({
             navigationActions={leftNavigationActions}
             navigationClick={leftNavigationClick}
             selectedNav={selectedNav}
-            handleClose={handleClose}
           />
         </List>
         {children}

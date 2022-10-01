@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,7 +10,9 @@ export const TopNavBar = ({
   topNavActions,
   navClickHandler,
   selectedNav,
-  label
+  label,
+  expandNav = () => {},
+  open
 }: any) => {
 
   const topBarNavigationActions = TopBarNavigationActions({
@@ -22,15 +23,14 @@ export const TopNavBar = ({
 
   return (
     <AppBar
-      //position="absolute"
       sx={{
-        //left: open ? "200px" : "64px",
+        width: open ? 'calc(100% - 200px)' : '100%'
       }}>
 
       <Toolbar>
 
         <IconButton
-          //onClick={handleOpen}
+          onClick={expandNav}
           size="large"
           edge="start"
           color="inherit"
@@ -39,8 +39,15 @@ export const TopNavBar = ({
           <Menu />
         </IconButton>
 
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{
+            flexGrow: 1
+          }}>
+
           {label}
+
         </Typography>
 
         {topBarNavigationActions}
