@@ -5,6 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
+import { styled } from '@mui/material/styles';
 
 export const TopNavBar = ({
   topNavActions,
@@ -22,10 +23,8 @@ export const TopNavBar = ({
   });
 
   return (
-    <AppBar
-      sx={{
-        width: open ? 'calc(100% - 200px)' : '100%',
-      }}>
+    <AppBarStyled
+      data-open={open}>
 
       <Toolbar
         sx={{
@@ -61,8 +60,7 @@ export const TopNavBar = ({
 
       </Toolbar>
 
-    </AppBar>
-    
+    </AppBarStyled>
   );
 }
 
@@ -85,3 +83,20 @@ const TopBarNavigationActions = ({
     );
   });
 };
+
+const AppBarStyled = styled(AppBar)(({
+  theme,
+  ...props
+}: any) => {
+
+  const open = props['data-open']
+
+  return {
+    width: open ? 'calc(100% - 200px)' : '100%',
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }
+
+});
