@@ -13,7 +13,9 @@ export const TopNavBar = ({
   selectedNav,
   label,
   expandNav = () => {},
-  open
+  open,
+  topNavHeight,
+  maxWidth,
 }: any) => {
 
   const topBarNavigationActions = TopBarNavigationActions({
@@ -24,11 +26,12 @@ export const TopNavBar = ({
 
   return (
     <AppBarStyled
+      data-max={maxWidth}
       data-open={open}>
 
       <Toolbar
         sx={{
-          height: 64
+          height: topNavHeight
         }}>
 
         <IconButton
@@ -89,10 +92,11 @@ const AppBarStyled = styled(AppBar)(({
   ...props
 }: any) => {
 
-  const open = props['data-open']
+  const open = props['data-open'];
+  const max = props['data-max'];
 
   return {
-    width: open ? 'calc(100% - 200px)' : '100%',
+    width: open ? `calc(100% - ${max}px)` : '100%',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

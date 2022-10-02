@@ -9,6 +9,9 @@ export const Layout = ({
   label,
   navigationActions = [],
   leftNavigationClick = () => {},
+  topNavHeight = 64,
+  leftNavMinWidth = 64,
+  leftNavMaxWidth = 240,
   children,
 }: LayoutProps) => {
   const [open, setOpen] = React.useState(true);
@@ -39,6 +42,8 @@ export const Layout = ({
         label={label}
         expandNav={expandNav}
         open={open}
+        topNavHeight={topNavHeight}
+        maxWidth={leftNavMaxWidth}
       />
 
       <LeftNavDrawer
@@ -47,12 +52,15 @@ export const Layout = ({
         selectedNav={selectedNav}
         open={open}
         collapseNav={collapseNav}
+        minWidth={leftNavMinWidth}
+        maxWidth={leftNavMaxWidth}
+        topNavHeight={topNavHeight}
       />
 
       <Box
         sx={{
-          marginTop: "64px",
-          marginLeft: open ? "200px" : "64px",
+          marginTop: topNavHeight,
+          marginLeft: open ? leftNavMaxWidth : leftNavMinWidth,
         }}
       >
         {children}
@@ -70,6 +78,19 @@ interface LayoutProps {
    */
   navigationActions?: Array<NavigationAction>;
   leftNavigationClick?: Function;
+  /**
+   * Top navigation bar height
+   */
+  topNavHeight?: number,
+  /**
+   * Left navigation drawer collapsed width
+   */
+  leftNavMinWidth?: number,
+  /**
+   * Left navigation drawer expanded width
+   */
+  leftNavMaxWidth?: number,
+
   children?: any;
 }
 

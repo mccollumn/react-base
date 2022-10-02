@@ -18,6 +18,9 @@ export const LeftNavDrawer = ({
   collapseNav = () => {},
   selectedNav,
   open,
+  minWidth,
+  maxWidth,
+  topNavHeight,
   children,
 }: any) => {
   return (
@@ -33,16 +36,16 @@ export const LeftNavDrawer = ({
 
       <Collapse
         sx={{
-          width: '200px'
+          width: maxWidth
         }}
         orientation="horizontal"
         in={open}
-        collapsedSize={64}>
+        collapsedSize={minWidth}>
 
         <Box
           sx={{
-            height: 64,
-            width: '200px',
+            height: topNavHeight,
+            width: maxWidth,
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center'
@@ -68,7 +71,6 @@ export const LeftNavDrawer = ({
         <List
           className="ListContainer"
           sx={{
-            //width: open ? "200px" : "64px",
             overflowX: "hidden",
           }}
           aria-label="Navigation list"
