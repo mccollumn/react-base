@@ -14,7 +14,7 @@ export const Layout = ({
   leftNavMaxWidth = 240,
   children,
 }: LayoutProps) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [selectedNav, setSelectedNav]: any = React.useState();
 
   const expandNav = () => setOpen(true);
@@ -27,8 +27,12 @@ export const Layout = ({
   const topNavActions = navigationActions.filter((a) => a.position === "top");
   const leftNavActions = navigationActions.filter((a) => a.position !== "top");
 
+  let baseClassNames = ['base-application'];
+  baseClassNames.push(open ? 'expanded' : 'contracted');
+
   return (
     <Box
+      className={baseClassNames.join(' ')}
       sx={{
         display: "flex",
         flexGrow: 1
@@ -58,11 +62,16 @@ export const Layout = ({
       />
 
       <Box
+        className={'base-page-container'}
         sx={{
-          marginTop: topNavHeight,
-          marginLeft: open ? leftNavMaxWidth : leftNavMinWidth,
+          marginTop: `${topNavHeight}px`,
+          marginLeft: open ? `${leftNavMaxWidth}px` : `${leftNavMinWidth}px`,
+          width: '100%',
+          height: '100%',
+          padding: '24px'
         }}
       >
+
         {children}
 
       </Box>
@@ -90,7 +99,9 @@ interface LayoutProps {
    * Left navigation drawer expanded width
    */
   leftNavMaxWidth?: number,
-
+  /**
+   * All child elements
+   */
   children?: any;
 }
 

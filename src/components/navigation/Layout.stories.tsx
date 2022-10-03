@@ -59,6 +59,16 @@ const defaultNavActions: Array<NavigationAction> = [
 export default {
   title: "Layout",
   component: Layout,
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          margin: '-1rem',  // Offset parent storybook padding
+        }}>
+        <Story />
+      </div>
+    ),
+  ],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     navigationActions: {

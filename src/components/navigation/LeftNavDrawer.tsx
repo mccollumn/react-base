@@ -36,7 +36,7 @@ export const LeftNavDrawer = ({
 
       <Collapse
         sx={{
-          width: maxWidth
+          width: minWidth
         }}
         orientation="horizontal"
         in={open}
