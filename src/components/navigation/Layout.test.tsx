@@ -1,4 +1,4 @@
-import { Layout } from "./Layout";
+import { Layout, NavigationAction } from "./Layout";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 
 describe("<Layout />", () => {
@@ -15,7 +15,7 @@ describe("<Layout />", () => {
         leftNavigationClick={mockLeftNavigationClick}
       />
     );
-    fireEvent.click(screen.getByLabelText("Navigation menu"));
+
     await waitFor(() => {
       expect(screen.getByLabelText("Navigation drawer")).toHaveTextContent(
         "Home2"
@@ -29,8 +29,30 @@ describe("<Layout />", () => {
 
   it("should override with component", () => {
     render(<Layout navigationActions={mockNavActions} />);
-    fireEvent.click(screen.getByLabelText("Navigation menu"));
     expect(screen.getByText("Mock Logo")).toBeInTheDocument();
+  });
+
+  it("Should expand and contract left navigation", () => {
+    render(
+      <Layout
+        navigationActions={mockNavActions}
+      />);
+
+    // Expand
+    fireEvent.click(screen.getByLabelText("Expand Left Navigation"));
+
+    expect(
+      screen.getByLabelText("Base application")
+    ).toHaveClass('expanded')
+
+
+    // Contract
+    fireEvent.click(screen.getByLabelText("Collapse Left Navigation"));
+
+    expect(
+      screen.getByLabelText("Base application")
+    ).toHaveClass('contracted')
+
   });
 });
 
@@ -38,7 +60,7 @@ const MockLogo = () => {
   return <div>Mock Logo</div>;
 };
 
-const mockNavActions = [
+const mockNavActions: Array<NavigationAction> = [
   {
     key: "HOME",
     label: "Home",
@@ -55,5 +77,11 @@ const mockNavActions = [
   {
     key: "component",
     Component: <MockLogo />,
+  },
+  {
+    key: "Avatar",
+    label: "Avatar",
+    ariaLabel: "Avatar",
+    position: "top",
   },
 ];

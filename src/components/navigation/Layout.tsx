@@ -80,7 +80,9 @@ export const Layout = ({
 };
 
 interface LayoutProps {
-  /* Title of application */
+  /**
+     Title of application
+   */
   label?: string;
   /**
    * List of all navigation actions in left navigation and app bar

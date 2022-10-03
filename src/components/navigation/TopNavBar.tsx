@@ -39,7 +39,7 @@ export const TopNavBar = ({
           size="large"
           edge="start"
           color="inherit"
-          aria-label="Navigation menu"
+          aria-label="Expand Left Navigation"
           sx={{
             display: open ? 'none' : 'block',
             height: 48

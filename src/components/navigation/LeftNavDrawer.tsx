@@ -56,7 +56,7 @@ export const LeftNavDrawer = ({
             size="large"
             edge="start"
             color="inherit"
-            aria-label="Navigation menu"
+            aria-label="Collapse Left Navigation"
             sx={{
               height: 48
             }}
