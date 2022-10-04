@@ -15,6 +15,8 @@ export const mockNavActions: Array<NavigationAction> = [
     icon: <Apps />,
     ariaLabel: "Profiles",
     path: "/profiles",
+    authFilter: "authorized",
+    position: "left",
   },
   {
     key: "Reports",
@@ -22,17 +24,20 @@ export const mockNavActions: Array<NavigationAction> = [
     icon: <Assessment />,
     ariaLabel: "Reports",
     path: "/reports",
+    authFilter: "authorized",
+    position: "left",
   },
-  { divider: true },
   {
-    Component: <Logo />,
+    divider: true,
+    authFilter: "always",
+    position: "left",
   },
-  { divider: true },
   {
     key: "Notifications",
     label: "Notifications",
     icon: <Notifications />,
     ariaLabel: "Notifications",
+    authFilter: "authorized",
     position: "top",
   },
   {
@@ -40,6 +45,7 @@ export const mockNavActions: Array<NavigationAction> = [
     label: "Settings",
     icon: <Settings />,
     ariaLabel: "Settings",
+    authFilter: "authorized",
     position: "top",
   },
   {
@@ -47,6 +53,15 @@ export const mockNavActions: Array<NavigationAction> = [
     label: "Avatar",
     icon: <Person />,
     ariaLabel: "Avatar",
+    authFilter: "authorized",
+    position: "top",
+  },
+  {
+    key: "Login",
+    label: "Login",
+    icon: <Person />,
+    ariaLabel: "Login",
+    authFilter: "unauthorized",
     position: "top",
   },
 ];

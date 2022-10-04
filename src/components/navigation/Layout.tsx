@@ -112,15 +112,39 @@ interface LayoutProps {
 
 export interface NavigationAction {
   key?: string;
+  /**
+   * Display actions on authorization state
+   * always: Always show regardless of auth status
+   * authorized: Only show when user is authorized
+   * unauthorized: Only show when user is not authorized
+   */
+  authFilter: "always" | "authorized" | "unauthorized";
+  /**
+   * Display text to the user
+   */
   label?: string;
+  /**
+   * Aria text
+   */
   ariaLabel?: string;
+  /**
+   * MUI Icon to display
+   */
   icon?: React.ReactElement | null;
+  /**
+   * Display a divider in navigation
+   */
   divider?: Boolean;
+  /**
+   * Path to redirect to on nav click
+   */
   path?: string;
   /**
    * Define which navigation area to display the action
+   * left: Left navigation drawer
+   * top: Top app navigation
    */
-  position?: "left" | "top";
+  position: "left" | "top";
   /**
    * Render component instead of drawer menu item
    */

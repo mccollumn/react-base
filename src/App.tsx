@@ -22,14 +22,22 @@ function App() {
       navigationActions={[
         {
           Component: <Logo />,
+          authFilter: "always",
+          position: "left",
         },
-        { divider: true },
+        {
+          divider: true,
+          authFilter: "always",
+          position: "left",
+        },
         {
           key: "Profiles",
           label: "Profiles",
           icon: <Apps />,
           ariaLabel: "Profiles",
           path: "/profiles",
+          authFilter: "always",
+          position: "left",
         },
         {
           key: "Reports",
@@ -37,6 +45,8 @@ function App() {
           icon: <Assessment />,
           ariaLabel: "Reports",
           path: "/reports",
+          authFilter: "always",
+          position: "left",
         },
         {
           key: "Notifications",
@@ -45,6 +55,7 @@ function App() {
           ariaLabel: "Notifications",
           position: "top",
           path: "/notifications",
+          authFilter: "always",
         },
         {
           key: "Settings",
@@ -53,6 +64,7 @@ function App() {
           ariaLabel: "Settings",
           position: "top",
           path: "/settings",
+          authFilter: "always",
         },
         {
           key: "Avatar",
@@ -61,6 +73,7 @@ function App() {
           ariaLabel: "Avatar",
           position: "top",
           path: "/user",
+          authFilter: "always",
         },
       ]}
       navigationClick={clickHandler}
