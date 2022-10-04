@@ -63,7 +63,7 @@ function App() {
           path: "/user",
         },
       ]}
-      leftNavigationClick={clickHandler}
+      navigationClick={clickHandler}
     >
       <Routes>
         <Route path="/" element={<Homepage />} />

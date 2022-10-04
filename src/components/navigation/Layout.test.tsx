@@ -8,11 +8,11 @@ describe("<Layout />", () => {
   });
 
   it("Select a navigation item", async () => {
-    const mockLeftNavigationClick = jest.fn();
+    const mockNavigationClick = jest.fn();
     render(
       <Layout
         navigationActions={mockNavActions}
-        leftNavigationClick={mockLeftNavigationClick}
+        navigationClick={mockNavigationClick}
       />
     );
 
@@ -23,7 +23,7 @@ describe("<Layout />", () => {
     });
     fireEvent.click(screen.getByText("Home2"));
     await waitFor(() => {
-      expect(mockLeftNavigationClick).toBeCalledWith(mockNavActions[2]);
+      expect(mockNavigationClick).toBeCalledWith(mockNavActions[2]);
     });
   });
 

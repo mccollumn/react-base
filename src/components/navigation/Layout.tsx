@@ -8,7 +8,7 @@ import { LeftNavDrawer } from './LeftNavDrawer'
 export const Layout = ({
   label,
   navigationActions = [],
-  leftNavigationClick = () => {},
+  navigationClick = () => {},
   topNavHeight = 64,
   leftNavMinWidth = 64,
   leftNavMaxWidth = 240,
@@ -22,7 +22,7 @@ export const Layout = ({
 
   const navClickHandler = (action: NavigationAction) => {
     setSelectedNav(action);
-    leftNavigationClick(action);
+    navigationClick(action);
   };
   const topNavActions = navigationActions.filter((a) => a.position === "top");
   const leftNavActions = navigationActions.filter((a) => a.position !== "top");
@@ -88,7 +88,10 @@ interface LayoutProps {
    * List of all navigation actions in left navigation and app bar
    */
   navigationActions?: Array<NavigationAction>;
-  leftNavigationClick?: Function;
+  /**
+   * Event when navigation is clicked, returns navigation item
+   */
+  navigationClick?: Function;
   /**
    * Top navigation bar height
    */

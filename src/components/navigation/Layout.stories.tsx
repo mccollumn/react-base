@@ -8,11 +8,10 @@ import {
   Apps,
 } from "@mui/icons-material";
 import logo from "../../logo.svg";
-
 import { Layout, NavigationAction } from "./Layout";
+import { mockNavActions } from "./mocks/navActions";
 
 const defaultNavActions: Array<NavigationAction> = [
-
   {
     key: "Profiles",
     label: "Profiles",
@@ -72,7 +71,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     navigationActions: {
-      defaultValue: defaultNavActions,
+      defaultValue: mockNavActions,
     },
   },
 } as ComponentMeta<typeof Layout>;
@@ -94,8 +93,8 @@ export const UsageExample = () => {
 
   return (
     <Layout
-      navigationActions={defaultNavActions}
-      leftNavigationClick={clickHandler}
+      navigationActions={mockNavActions}
+      navigationClick={clickHandler}
     >
       <DisplaySelectedAction action={action} />
     </Layout>
