@@ -11,6 +11,7 @@ import {
   Collapse
 } from "@mui/material";
 import { NavigationAction } from './Layout';
+import { filterNavigationActions } from './navigation.util';
 
 export const LeftNavDrawer = ({
   leftNavigationActions = [],
@@ -21,6 +22,7 @@ export const LeftNavDrawer = ({
   minWidth,
   maxWidth,
   topNavHeight,
+  isAuthorized,
   children,
 }: any) => {
   return (
@@ -79,6 +81,7 @@ export const LeftNavDrawer = ({
             navigationActions={leftNavigationActions}
             navigationClick={leftNavigationClick}
             selectedNav={selectedNav}
+            isAuthorized={isAuthorized}
           />
         </List>
         {children}
@@ -93,28 +96,36 @@ const NavigationList = ({
   navigationActions = [],
   navigationClick = () => {},
   selectedNav,
+  isAuthorized
 }: NavigationListProps): any => {
-  return navigationActions.map((action, index) => {
-    const handleClick = () => {
-      navigationClick(action);
-    };
-    if (action.divider) {
-      return <Divider key={index} />;
-    }
-    if (action.Component) {
-      return <ComponentOverride component={action.Component} key={index} />;
-    }
-    return (
-      <ListItemButton
-        selected={action.key === selectedNav?.key}
-        key={index}
-        onClick={handleClick}
-      >
-        <ListItemIcon>{action.icon}</ListItemIcon>
-        <ListItemText>{action.label}</ListItemText>
-      </ListItemButton>
-    );
-  });
+  return navigationActions
+    .filter((a: NavigationAction) => {
+      return filterNavigationActions({
+        action: a,
+        isAuthorized
+      })
+    })
+    .map((action, index) => {
+      const handleClick = () => {
+        navigationClick(action);
+      };
+      if (action.divider) {
+        return <Divider key={index} />;
+      }
+      if (action.Component) {
+        return <ComponentOverride component={action.Component} key={index} />;
+      }
+      return (
+        <ListItemButton
+          selected={action.key === selectedNav?.key}
+          key={index}
+          onClick={handleClick}
+        >
+          <ListItemIcon>{action.icon}</ListItemIcon>
+          <ListItemText>{action.label}</ListItemText>
+        </ListItemButton>
+      );
+    });
 };
 
 const ComponentOverride = ({ component }: any) => {
@@ -125,4 +136,5 @@ interface NavigationListProps {
   navigationActions: Array<NavigationAction>;
   navigationClick: Function;
   selectedNav: NavigationAction;
+  isAuthorized: boolean;
 }
