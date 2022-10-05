@@ -12,6 +12,7 @@ export const Layout = ({
   topNavHeight = 64,
   leftNavMinWidth = 64,
   leftNavMaxWidth = 240,
+  isAuthorized,
   children,
 }: LayoutProps) => {
   const [open, setOpen] = React.useState(false);
@@ -40,6 +41,7 @@ export const Layout = ({
       aria-label="Base application">
 
       <TopNavBar
+        isAuthorized={false}
         topNavActions={topNavActions}
         navClickHandler={navClickHandler}
         selectedNav={selectedNav}
@@ -51,6 +53,7 @@ export const Layout = ({
       />
 
       <LeftNavDrawer
+        isAuthorized={false}
         leftNavigationActions={leftNavActions}
         leftNavigationClick={navClickHandler}
         selectedNav={selectedNav}
@@ -88,6 +91,10 @@ interface LayoutProps {
    * List of all navigation actions in left navigation and app bar
    */
   navigationActions?: Array<NavigationAction>;
+  /**
+   * Current user authorized status
+   */
+  isAuthorized: boolean,
   /**
    * Event when navigation is clicked, returns navigation item
    */

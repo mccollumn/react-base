@@ -4,6 +4,7 @@ import {
   Settings,
   Assessment,
   Apps,
+  Login,
 } from "@mui/icons-material";
 import logo from "../../../logo.svg";
 import { NavigationAction } from "../Layout";
@@ -59,18 +60,9 @@ export const mockNavActions: Array<NavigationAction> = [
   {
     key: "Login",
     label: "Login",
-    icon: <Person />,
+    icon: <Login/>,
     ariaLabel: "Login",
     authFilter: "unauthorized",
     position: "top",
   },
 ];
-
-
-function Logo() {
-  return (
-    <div>
-      <img src={logo} alt="Logo" />
-    </div>
-  );
-}

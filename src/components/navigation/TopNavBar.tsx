@@ -6,6 +6,8 @@ import {
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
+import { NavigationAction } from './Layout';
+import { filterNavigationActions } from './navigation.util';
 
 export const TopNavBar = ({
   topNavActions,
@@ -70,11 +72,19 @@ export const TopNavBar = ({
 const TopBarNavigationActions = ({
   topNavActions = [],
   navClickHandler = () => {},
-  selectedNav = {},
-}: any) => {
-  return topNavActions.map((a: any) => {
+  selectedNav,
+  isAuthorized,
+}: TopNavigationListProps) => {
+  return topNavActions
+    .filter((a:NavigationAction) => {
+      return filterNavigationActions({
+        action: a,
+        isAuthorized
+      })
+    })
+    .map((a: NavigationAction) => {
     const clickHandler = () => navClickHandler(a);
-    const selected = a.key === selectedNav.key;
+    const selected = a.key === selectedNav?.key;
     return (
       <IconButton
         color={selected ? "secondary" : "inherit"}
@@ -104,3 +114,10 @@ const AppBarStyled = styled(AppBar)(({
   }
 
 });
+
+interface TopNavigationListProps {
+  topNavActions: Array<NavigationAction>;
+  navClickHandler: Function;
+  selectedNav?: NavigationAction;
+  isAuthorized?: boolean;
+}

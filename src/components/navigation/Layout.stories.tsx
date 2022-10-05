@@ -29,6 +29,9 @@ export default {
     navigationActions: {
       defaultValue: mockNavActions,
     },
+    isAuthorized: {
+      value: false
+    }
   },
 } as ComponentMeta<typeof Layout>;
 
@@ -51,6 +54,7 @@ export const UsageExample = () => {
     <Layout
       navigationActions={mockNavActions}
       navigationClick={clickHandler}
+      isAuthorized={false}
     >
       <DisplaySelectedAction action={action} />
     </Layout>

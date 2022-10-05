@@ -3,7 +3,11 @@ import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 
 describe("<Layout />", () => {
   it("Should load without error", async () => {
-    render(<Layout />);
+    render(
+      <Layout
+        isAuthorized={false}
+      />
+    );
     expect(screen.getByLabelText("Base application")).toBeInTheDocument();
   });
 
@@ -13,6 +17,7 @@ describe("<Layout />", () => {
       <Layout
         navigationActions={mockNavActions}
         navigationClick={mockNavigationClick}
+        isAuthorized={false}
       />
     );
 
@@ -28,7 +33,11 @@ describe("<Layout />", () => {
   });
 
   it("should override with component", () => {
-    render(<Layout navigationActions={mockNavActions} />);
+    render(
+      <Layout
+        navigationActions={mockNavActions}
+        isAuthorized={false}
+      />);
     expect(screen.getByText("Mock Logo")).toBeInTheDocument();
   });
 
@@ -36,6 +45,7 @@ describe("<Layout />", () => {
     render(
       <Layout
         navigationActions={mockNavActions}
+        isAuthorized={false}
       />);
 
     // Expand
