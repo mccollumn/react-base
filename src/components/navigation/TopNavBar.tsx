@@ -92,6 +92,7 @@ const TopBarNavigationActions = ({
         color={selected ? "secondary" : "inherit"}
         key={a.key}
         onClick={clickHandler}
+        aria-label={a.ariaLabel}
       >
         {a.icon}
       </IconButton>

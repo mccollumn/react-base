@@ -38,11 +38,11 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof Layout> = (args) => <Layout {...args} />;
 
-export const Primary = Template.bind({});
+export const LoggedOut = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  label: "App Name",
-  isAuthorized: true,
+LoggedOut.args = {
+  label: "Logged Out",
+  isAuthorized: false,
 };
 
 export const UsageExample = () => {
