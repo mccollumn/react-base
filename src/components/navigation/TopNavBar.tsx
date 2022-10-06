@@ -3,6 +3,7 @@ import {
   Toolbar,
   IconButton,
   Typography,
+  Tooltip,
 } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
@@ -79,14 +80,20 @@ const TopBarNavigationActions = ({
       const clickHandler = () => navClickHandler(a);
       const selected = a.key === selectedNav?.key;
       return (
-        <IconButton
-          color={selected ? "secondary" : "inherit"}
+        <Tooltip
           key={a.key}
-          onClick={clickHandler}
-          aria-label={a.ariaLabel}
-        >
-          {a.icon}
-        </IconButton>
+          title={a.label || ''}>
+
+          <IconButton
+            color={selected ? "secondary" : "inherit"}
+            key={a.key}
+            onClick={clickHandler}
+            aria-label={a.ariaLabel}
+          >
+            {a.icon}
+          </IconButton>
+
+        </Tooltip>
       );
     });
 };

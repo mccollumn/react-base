@@ -8,7 +8,8 @@ import {
   ListItemText,
   Divider,
   IconButton,
-  Collapse
+  Collapse,
+  Tooltip,
 } from "@mui/material";
 import { NavigationAction } from './Layout';
 import { filterNavigationActions } from './navigation.util';
@@ -123,7 +124,9 @@ const NavigationList = ({
           key={index}
           onClick={handleClick}
         >
-          <ListItemIcon>{action.icon}</ListItemIcon>
+          <Tooltip title={action.label || ''}>
+            <ListItemIcon>{action.icon}</ListItemIcon>
+          </Tooltip >
           <ListItemText>{action.label}</ListItemText>
         </ListItemButton>
       );
