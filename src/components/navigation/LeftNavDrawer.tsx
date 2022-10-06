@@ -23,6 +23,7 @@ export const LeftNavDrawer = ({
   maxWidth,
   topNavHeight,
   isAuthorized,
+  showDrawer,
   children,
 }: any) => {
   return (
@@ -33,6 +34,7 @@ export const LeftNavDrawer = ({
       variant={"permanent"}
       sx={{
         zIndex: 0,
+        display: !showDrawer ? 'none' : 'flex'
       }}
     >
 

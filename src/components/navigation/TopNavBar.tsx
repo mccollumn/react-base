@@ -7,7 +7,6 @@ import {
 import { Menu } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
 import { NavigationAction } from './Layout';
-import { filterNavigationActions } from './navigation.util';
 
 export const TopNavBar = ({
   topNavActions,
@@ -18,14 +17,13 @@ export const TopNavBar = ({
   open,
   topNavHeight,
   maxWidth,
-  isAuthorized,
+  showMenu,
 }: any) => {
 
   const topBarNavigationActions = TopBarNavigationActions({
     topNavActions,
     navClickHandler,
     selectedNav,
-    isAuthorized
   });
 
   return (
@@ -45,7 +43,7 @@ export const TopNavBar = ({
           color="inherit"
           aria-label="Expand Left Navigation"
           sx={{
-            display: open ? 'none' : 'block',
+            display: (open || !showMenu) ? 'none' : 'block',
             height: 48
           }}
         >
@@ -74,30 +72,23 @@ export const TopNavBar = ({
 const TopBarNavigationActions = ({
   topNavActions = [],
   navClickHandler = () => {},
-  selectedNav,
-  isAuthorized,
+  selectedNav
 }: TopNavigationListProps) => {
   return topNavActions
-    .filter((a:NavigationAction) => {
-      return filterNavigationActions({
-        action: a,
-        isAuthorized
-      })
-    })
     .map((a: NavigationAction) => {
-    const clickHandler = () => navClickHandler(a);
-    const selected = a.key === selectedNav?.key;
-    return (
-      <IconButton
-        color={selected ? "secondary" : "inherit"}
-        key={a.key}
-        onClick={clickHandler}
-        aria-label={a.ariaLabel}
-      >
-        {a.icon}
-      </IconButton>
-    );
-  });
+      const clickHandler = () => navClickHandler(a);
+      const selected = a.key === selectedNav?.key;
+      return (
+        <IconButton
+          color={selected ? "secondary" : "inherit"}
+          key={a.key}
+          onClick={clickHandler}
+          aria-label={a.ariaLabel}
+        >
+          {a.icon}
+        </IconButton>
+      );
+    });
 };
 
 const AppBarStyled = styled(AppBar)(({

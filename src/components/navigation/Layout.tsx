@@ -4,6 +4,7 @@ import {
 } from "@mui/material";
 import { TopNavBar } from './TopNavBar'
 import { LeftNavDrawer } from './LeftNavDrawer'
+import { filterNavigationActions } from './navigation.util';
 
 export const Layout = ({
   label,
@@ -25,8 +26,15 @@ export const Layout = ({
     setSelectedNav(action);
     navigationClick(action);
   };
-  const topNavActions = navigationActions.filter((a) => a.position === "top");
-  const leftNavActions = navigationActions.filter((a) => a.position !== "top");
+
+  const {
+    topNavActions,
+    leftNavActions,
+    leftNavCount
+  } = getNavigationActions(
+    navigationActions,
+    isAuthorized
+  );
 
   let baseClassNames = ['base-application'];
   baseClassNames.push(open ? 'expanded' : 'contracted');
@@ -48,6 +56,7 @@ export const Layout = ({
         label={label}
         expandNav={expandNav}
         open={open}
+        showMenu={!!leftNavCount}
         topNavHeight={topNavHeight}
         maxWidth={leftNavMaxWidth}
       />
@@ -58,6 +67,7 @@ export const Layout = ({
         leftNavigationClick={navClickHandler}
         selectedNav={selectedNav}
         open={open}
+        showDrawer={!!leftNavCount}
         collapseNav={collapseNav}
         minWidth={leftNavMinWidth}
         maxWidth={leftNavMaxWidth}
@@ -81,6 +91,37 @@ export const Layout = ({
     </Box>
   );
 };
+
+const getNavigationActions = (
+  navigationActions: Array<NavigationAction>,
+  isAuthorized: boolean
+) => {
+  const topNavActions = navigationActions
+    .filter((a: NavigationAction) => a.position === "top")
+    .filter((a: NavigationAction) => {
+      return filterNavigationActions({
+        action: a,
+        isAuthorized
+      })
+    });
+
+  const leftNavActions = navigationActions
+    .filter((a: NavigationAction) => a.position !== "top")
+    .filter((a: NavigationAction) => {
+      return filterNavigationActions({
+        action: a,
+        isAuthorized
+      })
+    });
+
+  return {
+    topNavActions,
+    leftNavActions,
+    // Filter any dividers
+    leftNavCount: leftNavActions.filter((a: NavigationAction) => !a.divider).length
+  }
+
+}
 
 interface LayoutProps {
   /**

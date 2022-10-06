@@ -45,7 +45,7 @@ LoggedOut.args = {
   isAuthorized: false,
 };
 
-export const UsageExample = () => {
+export const LoggedIn = () => {
   const [action, setAction] = React.useState();
   const clickHandler = (navAction: any) => {
     setAction(navAction);
@@ -53,6 +53,7 @@ export const UsageExample = () => {
 
   return (
     <Layout
+      label={"Logged In"}
       navigationActions={mockNavActions}
       navigationClick={clickHandler}
       isAuthorized={true}
