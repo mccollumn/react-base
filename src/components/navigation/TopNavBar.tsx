@@ -18,12 +18,14 @@ export const TopNavBar = ({
   open,
   topNavHeight,
   maxWidth,
+  isAuthorized,
 }: any) => {
 
   const topBarNavigationActions = TopBarNavigationActions({
     topNavActions,
     navClickHandler,
     selectedNav,
+    isAuthorized
   });
 
   return (

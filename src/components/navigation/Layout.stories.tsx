@@ -30,7 +30,7 @@ export default {
       defaultValue: mockNavActions,
     },
     isAuthorized: {
-      value: false
+      value: true
     }
   },
 } as ComponentMeta<typeof Layout>;
@@ -42,6 +42,7 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   label: "App Name",
+  isAuthorized: true,
 };
 
 export const UsageExample = () => {
@@ -54,7 +55,7 @@ export const UsageExample = () => {
     <Layout
       navigationActions={mockNavActions}
       navigationClick={clickHandler}
-      isAuthorized={false}
+      isAuthorized={true}
     >
       <DisplaySelectedAction action={action} />
     </Layout>

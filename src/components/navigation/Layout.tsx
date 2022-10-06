@@ -41,7 +41,7 @@ export const Layout = ({
       aria-label="Base application">
 
       <TopNavBar
-        isAuthorized={false}
+        isAuthorized={isAuthorized}
         topNavActions={topNavActions}
         navClickHandler={navClickHandler}
         selectedNav={selectedNav}
@@ -53,7 +53,7 @@ export const Layout = ({
       />
 
       <LeftNavDrawer
-        isAuthorized={false}
+        isAuthorized={isAuthorized}
         leftNavigationActions={leftNavActions}
         leftNavigationClick={navClickHandler}
         selectedNav={selectedNav}
