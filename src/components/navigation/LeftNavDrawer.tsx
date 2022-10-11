@@ -31,6 +31,7 @@ export const LeftNavDrawer = ({
       variant={"permanent"}
       sx={{
         zIndex: 0,
+        overflowY: 'hidden',
       }}
     >
 
@@ -85,7 +86,7 @@ export const LeftNavDrawer = ({
 
       </Collapse>
 
-    </Drawer>
+    </Drawer >
   );
 }
 
