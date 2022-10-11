@@ -1,34 +1,56 @@
 import { Layout, NavigationAction } from "./Layout";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import { mockNavActions } from "./mocks/navActions";
+
+const MockLogo = () => {
+  return <div>Mock Logo</div>;
+};
 
 describe("<Layout />", () => {
   it("Should load without error", async () => {
-    render(<Layout />);
+    render(
+      <Layout
+        isAuthorized={false}
+      />
+    );
     expect(screen.getByLabelText("Base application")).toBeInTheDocument();
   });
 
   it("Select a navigation item", async () => {
-    const mockLeftNavigationClick = jest.fn();
+    const mockNavigationClick = jest.fn();
     render(
       <Layout
         navigationActions={mockNavActions}
-        leftNavigationClick={mockLeftNavigationClick}
+        navigationClick={mockNavigationClick}
+        isAuthorized={true}
       />
     );
 
     await waitFor(() => {
       expect(screen.getByLabelText("Navigation drawer")).toHaveTextContent(
-        "Home2"
+        "Reports"
       );
     });
-    fireEvent.click(screen.getByText("Home2"));
+    fireEvent.click(screen.getByText("Reports"));
     await waitFor(() => {
-      expect(mockLeftNavigationClick).toBeCalledWith(mockNavActions[2]);
+      expect(mockNavigationClick).toBeCalledWith(mockNavActions[1]);
     });
   });
 
   it("should override with component", () => {
-    render(<Layout navigationActions={mockNavActions} />);
+    render(
+      <Layout
+        navigationActions={[
+          ...mockNavActions,
+          {
+            key: "component",
+            Component: <MockLogo />,
+            authFilter: "always",
+            position: "left",
+          },
+        ]}
+        isAuthorized={false}
+      />);
     expect(screen.getByText("Mock Logo")).toBeInTheDocument();
   });
 
@@ -36,6 +58,7 @@ describe("<Layout />", () => {
     render(
       <Layout
         navigationActions={mockNavActions}
+        isAuthorized={false}
       />);
 
     // Expand
@@ -54,34 +77,17 @@ describe("<Layout />", () => {
     ).toHaveClass('contracted')
 
   });
+
+  it("Should filter non-authorized nav actions", () => {
+    render(
+      <Layout
+        navigationActions={mockNavActions}
+        isAuthorized={false}
+      />);
+
+    expect(
+      screen.getByLabelText("Login")
+    ).toBeInTheDocument();
+
+  });
 });
-
-const MockLogo = () => {
-  return <div>Mock Logo</div>;
-};
-
-const mockNavActions: Array<NavigationAction> = [
-  {
-    key: "HOME",
-    label: "Home",
-    icon: null,
-    ariaLabel: "Home",
-  },
-  { divider: true },
-  {
-    key: "HOME2",
-    label: "Home2",
-    icon: null,
-    ariaLabel: "Home2",
-  },
-  {
-    key: "component",
-    Component: <MockLogo />,
-  },
-  {
-    key: "Avatar",
-    label: "Avatar",
-    ariaLabel: "Avatar",
-    position: "top",
-  },
-];

@@ -4,14 +4,16 @@ import {
 } from "@mui/material";
 import { TopNavBar } from './TopNavBar'
 import { LeftNavDrawer } from './LeftNavDrawer'
+import { filterNavigationActions } from './navigation.util';
 
 export const Layout = ({
   label,
   navigationActions = [],
-  leftNavigationClick = () => {},
+  navigationClick = () => {},
   topNavHeight = 64,
   leftNavMinWidth = 64,
   leftNavMaxWidth = 240,
+  isAuthorized,
   children,
 }: LayoutProps) => {
   const [open, setOpen] = React.useState(false);
@@ -22,10 +24,17 @@ export const Layout = ({
 
   const navClickHandler = (action: NavigationAction) => {
     setSelectedNav(action);
-    leftNavigationClick(action);
+    navigationClick(action);
   };
-  const topNavActions = navigationActions.filter((a) => a.position === "top");
-  const leftNavActions = navigationActions.filter((a) => a.position !== "top");
+
+  const {
+    topNavActions,
+    leftNavActions,
+    leftNavCount
+  } = getNavigationActions(
+    navigationActions,
+    isAuthorized
+  );
 
   let baseClassNames = ['base-application'];
   baseClassNames.push(open ? 'expanded' : 'contracted');
@@ -40,21 +49,25 @@ export const Layout = ({
       aria-label="Base application">
 
       <TopNavBar
+        isAuthorized={isAuthorized}
         topNavActions={topNavActions}
         navClickHandler={navClickHandler}
         selectedNav={selectedNav}
         label={label}
         expandNav={expandNav}
         open={open}
+        showMenu={!!leftNavCount}
         topNavHeight={topNavHeight}
         maxWidth={leftNavMaxWidth}
       />
 
       <LeftNavDrawer
+        isAuthorized={isAuthorized}
         leftNavigationActions={leftNavActions}
         leftNavigationClick={navClickHandler}
         selectedNav={selectedNav}
         open={open}
+        showDrawer={!!leftNavCount}
         collapseNav={collapseNav}
         minWidth={leftNavMinWidth}
         maxWidth={leftNavMaxWidth}
@@ -79,6 +92,37 @@ export const Layout = ({
   );
 };
 
+const getNavigationActions = (
+  navigationActions: Array<NavigationAction>,
+  isAuthorized: boolean
+) => {
+  const topNavActions = navigationActions
+    .filter((a: NavigationAction) => a.position === "top")
+    .filter((a: NavigationAction) => {
+      return filterNavigationActions({
+        action: a,
+        isAuthorized
+      })
+    });
+
+  const leftNavActions = navigationActions
+    .filter((a: NavigationAction) => a.position !== "top")
+    .filter((a: NavigationAction) => {
+      return filterNavigationActions({
+        action: a,
+        isAuthorized
+      })
+    });
+
+  return {
+    topNavActions,
+    leftNavActions,
+    // Filter any dividers
+    leftNavCount: leftNavActions.filter((a: NavigationAction) => !a.divider).length
+  }
+
+}
+
 interface LayoutProps {
   /**
      Title of application
@@ -88,7 +132,14 @@ interface LayoutProps {
    * List of all navigation actions in left navigation and app bar
    */
   navigationActions?: Array<NavigationAction>;
-  leftNavigationClick?: Function;
+  /**
+   * Current user authorized status
+   */
+  isAuthorized: boolean,
+  /**
+   * Event when navigation is clicked, returns navigation item
+   */
+  navigationClick?: Function;
   /**
    * Top navigation bar height
    */
@@ -109,15 +160,39 @@ interface LayoutProps {
 
 export interface NavigationAction {
   key?: string;
+  /**
+   * Display actions on authorization state
+   * always: Always show regardless of auth status
+   * authorized: Only show when user is authorized
+   * unauthorized: Only show when user is not authorized
+   */
+  authFilter: "always" | "authorized" | "unauthorized";
+  /**
+   * Display text to the user
+   */
   label?: string;
+  /**
+   * Aria text
+   */
   ariaLabel?: string;
+  /**
+   * MUI Icon to display
+   */
   icon?: React.ReactElement | null;
+  /**
+   * Display a divider in navigation
+   */
   divider?: Boolean;
+  /**
+   * Path to redirect to on nav click
+   */
   path?: string;
   /**
    * Define which navigation area to display the action
+   * left: Left navigation drawer
+   * top: Top app navigation
    */
-  position?: "left" | "top";
+  position: "left" | "top";
   /**
    * Render component instead of drawer menu item
    */
