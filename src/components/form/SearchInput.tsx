@@ -9,6 +9,7 @@ const SearchInput = ({
     <TextField
       id="search"
       type="search"
+      aria-label="search"
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

@@ -132,18 +132,21 @@ const AppBarStyled = styled(AppBar)(({
       flexGrow: 1,
       justifyContent: "flex-start",
       alignItems: "center",
+      gap: theme.spacing(1.5)
     },
     ".top-nav-center": {
       display: "flex",
       flexGrow: 1,
       justifyContent: "center",
       alignItems: "center",
+      gap: theme.spacing(1.5)
     },
     ".top-nav-right": {
       display: "flex",
       flexGrow: 1,
       justifyContent: "flex-end",
       alignItems: "center",
+      gap: theme.spacing(1.5)
     },
   };
 

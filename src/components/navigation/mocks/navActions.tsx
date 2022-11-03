@@ -27,7 +27,7 @@ export const mockNavActions: Array<NavigationAction> = [
         sx={{ "& .MuiInputBase-root": { backgroundColor: "white" } }}
       />
     ),
-    snapPosition: "center",
+    snapPosition: "right",
   },
   {
     key: "Profiles",
