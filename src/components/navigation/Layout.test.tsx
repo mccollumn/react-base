@@ -33,7 +33,7 @@ describe("<Layout />", () => {
     });
     fireEvent.click(screen.getByText("Reports"));
     await waitFor(() => {
-      expect(mockNavigationClick).toBeCalledWith(mockNavActions[1]);
+      expect(mockNavigationClick).toBeCalledWith(mockNavActions[2]);
     });
   });
 
@@ -87,6 +87,19 @@ describe("<Layout />", () => {
 
     expect(
       screen.getByLabelText("Login")
+    ).toBeInTheDocument();
+
+  });
+
+  it("Should display custom component in top nav bar", () => {
+    render(
+      <Layout
+        navigationActions={mockNavActions}
+        isAuthorized={true}
+      />);
+
+    expect(
+      screen.getByLabelText("search")
     ).toBeInTheDocument();
 
   });

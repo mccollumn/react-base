@@ -6,10 +6,29 @@ import {
   Apps,
   Login,
 } from "@mui/icons-material";
-import logo from "../../../logo.svg";
 import { NavigationAction } from "../Layout";
+import SearchInput from "../../form/SearchInput";
 
 export const mockNavActions: Array<NavigationAction> = [
+  {
+    key: "Search",
+    label: "Search",
+    icon: <Apps />,
+    ariaLabel: "Search",
+    authFilter: "authorized",
+    position: "top",
+    Component: (
+      <SearchInput
+        onChange={(value: any) => {
+          console.log(value);
+        }}
+        variant={"outlined"}
+        margin={"none"}
+        sx={{ "& .MuiInputBase-root": { backgroundColor: "white" } }}
+      />
+    ),
+    snapPosition: "right",
+  },
   {
     key: "Profiles",
     label: "Profiles",
@@ -60,7 +79,7 @@ export const mockNavActions: Array<NavigationAction> = [
   {
     key: "Login",
     label: "Login",
-    icon: <Login/>,
+    icon: <Login />,
     ariaLabel: "Login",
     authFilter: "unauthorized",
     position: "top",
