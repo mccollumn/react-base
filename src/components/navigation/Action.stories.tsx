@@ -9,16 +9,6 @@ const avatarAction = mockNavActions.find((a: any) => a.key === 'Avatar');
 export default {
   title: "Action",
   component: Action,
-  decorators: [
-    (Story: any) => (
-      <div
-        style={{
-          margin: '-1rem',  // Offset parent storybook padding
-        }}>
-        <Story />
-      </div>
-    ),
-  ],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
 
