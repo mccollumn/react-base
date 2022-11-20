@@ -106,17 +106,13 @@ const PopoverBodyStyled = styled(Box)(({
     paddingBottom: theme.spacing(1.5),
     gap: theme.spacing(.5),
 
-    '& .r1-action-icon': {
-      width: '100%'
-    },
-
     '& > *': {
       paddingLeft: theme.spacing(1.5),
-      paddingRight: `${theme.spacing(1.5)} !important`,
+      paddingRight: theme.spacing(1.5),
     },
 
     '& > *:hover': {
-      background: '#EBF3FF',
+      background: theme.palette.action.hover,
     },
   }
 });
