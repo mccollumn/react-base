@@ -5,13 +5,14 @@ import {
   Box
 } from '@mui/material';
 import { ButtonRB } from '../button/ButtonRB';
+import { styled } from '@mui/material/styles';
 
 export const PopoverRB = ({
   anchorVertical = 'bottom',
   anchorHorizontal = 'left',
   transformVertical = 'top',
   transformHorizontal = 'center',
-  onClosePopover = () => { },
+  onClosePopover = () => {},
   ActionComponent = <DefaultActionComponent />,
   children = <DefaultChildComponent />,
   anchorRef = {},
@@ -84,19 +85,44 @@ export const PopoverRB = ({
           horizontal: transformHorizontal,
         }}>
 
-        <Box
+        <PopoverBodyStyled
           data-testid='popover-body'
           className={'popover-body'}>
           {allChildren}
-        </Box>
+        </PopoverBodyStyled>
 
       </Popover>
     </div>
   );
 }
 
+const PopoverBodyStyled = styled(Box)(({
+  theme
+}: any) => {
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
+    gap: theme.spacing(.5),
+
+    '& .r1-action-icon': {
+      width: '100%'
+    },
+
+    '& > *': {
+      paddingLeft: theme.spacing(1.5),
+      paddingRight: `${theme.spacing(1.5)} !important`,
+    },
+
+    '& > *:hover': {
+      background: '#EBF3FF',
+    },
+  }
+});
+
 const DefaultActionComponent = ({
-  onClick = () => { }
+  onClick = () => {}
 }: {
   onClick?: () => void
 }) => {
