@@ -115,7 +115,7 @@ const DefaultChildComponent = ({ }) => {
   );
 };
 
-export interface PopoverRBProps extends PopoverProps {
+export interface PopoverRBProps extends Omit<PopoverProps, 'open'> {
   /**
    * Content to display in the popover
    * A closePopover() function is injected into each component
