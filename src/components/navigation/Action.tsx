@@ -6,6 +6,9 @@ import {
 import {
   NavigationAction
 } from './Layout';
+import {
+  PopoverRBProps, PopoverRB
+} from '../popover/PopoverRB'
 
 /**
  * Standard Navigation Button/Icon
@@ -13,13 +16,48 @@ import {
 export const Action = ({
   action,
   navClickHandler = () => {},
-  selectedNav
+  selectedNav,
+  PopoverContent,
+  PopoverProps
 }: ActionProps) => {
 
   if (action.Component) {
     return React.cloneElement(action.Component, {key: action.key});
   }
   const clickHandler = () => navClickHandler(action);
+
+  // Action will open a popover on click
+  if (PopoverContent) {
+
+    return (
+      <PopoverRB
+        {...PopoverProps}
+        ActionComponent={
+          <NavAction
+            action={action}
+            selectedNav={selectedNav}
+          />
+        }>
+        {PopoverContent}
+      </PopoverRB>
+    );
+  }
+
+  return (
+    <NavAction
+      action={action}
+      selectedNav={selectedNav}
+      onClick={clickHandler}
+    />
+  );
+}
+
+const NavAction = ({
+  action,
+  selectedNav,
+  onClick
+}: any) => {
+
   const selected = action.key === selectedNav?.key;
 
   return (
@@ -27,7 +65,7 @@ export const Action = ({
       <IconButton
         color={selected ? "secondary" : "inherit"}
         key={action.key}
-        onClick={clickHandler}
+        onClick={onClick}
         aria-label={action.ariaLabel}
       >
         {action.icon}
@@ -49,5 +87,13 @@ export interface ActionProps {
   /**
    * When user clicks a navigation item
    */
-  navClickHandler: Function
+  navClickHandler: Function,
+  /**
+   * Display a Popover on click with this content
+   */
+  PopoverContent?: Array<React.ReactElement> | React.ReactElement,
+  /**
+   * All properties for Popover
+   */
+  PopoverProps?: PopoverRBProps,
 };

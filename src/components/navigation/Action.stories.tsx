@@ -21,5 +21,14 @@ const Template: ComponentStory<typeof Action> = (args) => <Action {...args} />;
 export const TopNavigationAction = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 TopNavigationAction.args = {
-  action: avatarAction
+  action: avatarAction,
+  PopoverContent: <ExampleChildPopoverContent/>
 };
+
+function ExampleChildPopoverContent() {
+  return (
+    <div>
+      Within Popover
+    </div>
+  );
+}
