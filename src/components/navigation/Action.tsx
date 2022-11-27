@@ -7,7 +7,7 @@ import {
   NavigationAction
 } from './Layout';
 import {
-  PopoverRB
+  PopoverRBProps, PopoverRB
 } from '../popover/PopoverRB'
 
 /**
@@ -17,17 +17,13 @@ export const Action = ({
   action,
   navClickHandler = () => {},
   selectedNav,
+  PopoverContent,
+  PopoverProps
 }: ActionProps) => {
 
   if (action.Component) {
     return React.cloneElement(action.Component, {key: action.key});
   }
-
-  const {
-    PopoverContent,
-    PopoverProps
-  } = action;
-
   const clickHandler = () => navClickHandler(action);
 
   // Action will open a popover on click
@@ -92,4 +88,12 @@ export interface ActionProps {
    * When user clicks a navigation item
    */
   navClickHandler: Function,
+  /**
+   * Display a Popover on click with this content
+   */
+  PopoverContent?: Array<React.ReactElement> | React.ReactElement,
+  /**
+   * All properties for Popover
+   */
+  PopoverProps?: PopoverRBProps,
 };

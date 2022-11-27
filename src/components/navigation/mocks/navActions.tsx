@@ -72,7 +72,6 @@ export const mockNavActions: Array<NavigationAction> = [
     key: "Avatar",
     label: "Avatar",
     icon: <Person />,
-    PopoverContent: <ExampleChildPopoverContent />,
     ariaLabel: "Avatar",
     authFilter: "authorized",
     position: "top",
@@ -80,18 +79,9 @@ export const mockNavActions: Array<NavigationAction> = [
   {
     key: "Login",
     label: "Login",
-    icon: <Person />,
-    PopoverContent: <ExampleChildPopoverContent />,
+    icon: <Login />,
     ariaLabel: "Login",
     authFilter: "unauthorized",
     position: "top",
   },
 ];
-
-function ExampleChildPopoverContent() {
-  return (
-    <div>
-      Within Popover
-    </div>
-  );
-}
