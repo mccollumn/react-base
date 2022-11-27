@@ -3,6 +3,8 @@ import {
   IconButton,
   Tooltip,
   Box,
+  ButtonBase,
+  Typography
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import {
@@ -39,6 +41,8 @@ export const Action = ({
         <NavPopoverMenuItem
           key={idx}
           popoverAction={p}
+          navClickHandler={navClickHandler}
+          selectedNav={selectedNav}
         />
       );
     });
@@ -89,35 +93,57 @@ const NavAction = ({
 }
 
 const NavPopoverMenuItem = ({
-  popoverAction
+  popoverAction,
+  selectedNav,
+  navClickHandler = () => {},
+  closePopover = () => {},
 }: NavPopoverMenuItemProps) => {
+
+  const baseClass = ['nav-popover-menu-item'];
+
+  const clickHandler = () => {
+    navClickHandler(popoverAction);
+    closePopover();
+  }
+
+  if(selectedNav === popoverAction) {
+    baseClass.push('item-selected');
+  }
 
   return (
     <NavPopoverMenuItemStyled
-      className={`nav-popover-menu-item`}
-    >
+      className={baseClass.join(' ')}
+      onClick={clickHandler}>
+
       <Box className={'nav-menu-icon'}>
         {popoverAction.icon}
       </Box>
 
-      <Box className={'nav-menu-label'}>
+      <Typography
+        variant={'subtitle1'}
+        className='nav-menu-label'>
         {popoverAction.label}
-      </Box>
+      </Typography>
 
     </NavPopoverMenuItemStyled>
   );
 }
 
-const NavPopoverMenuItemStyled = styled(Box)(({
+const NavPopoverMenuItemStyled = styled(ButtonBase)(({
   theme
 }: any) => {
   return {
 
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: theme.spacing(1.5),
     gap: theme.spacing(1.5),
     height: theme.spacing(5),
-    cursor: 'pointer',
+
+    '&.item-selected': {
+      background: theme.palette.action.selected,
+    },
 
     '.nav-menu-label': {
       whiteSpace: 'nowrap',
@@ -147,4 +173,16 @@ export interface NavPopoverMenuItemProps {
    * Displays navigation button/icon to user
    */
   popoverAction: PopoverNavigationActionProps,
+  /**
+   * Current selected navigation action
+   */
+  selectedNav?: NavigationAction,
+  /**
+   * Handle click for navigation
+   */
+  navClickHandler: any,
+  /**
+   * Click handler passed in from parent, or injected from popover/modal
+   */
+  closePopover?: any
 };
