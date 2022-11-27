@@ -37,6 +37,33 @@ describe("<Layout />", () => {
     });
   });
 
+  it("Select popover top navigation item", async () => {
+
+    // @ts-ignore
+    const expectedNavAction = mockNavActions
+      .find((m: any) => m?.label === 'Avatar')
+      .popoverActions[0];
+
+    const mockNavigationClick = jest.fn();
+    render(
+      <Layout
+        navigationActions={mockNavActions}
+        navigationClick={mockNavigationClick}
+        isAuthorized={true}
+      />
+    );
+
+    fireEvent.click(screen.getByLabelText("Avatar"));
+
+    const settings = await screen.findByText("Account Settings");
+    expect(settings).toBeInTheDocument();
+
+    fireEvent.click(settings);
+
+    expect(mockNavigationClick).toBeCalledWith(expectedNavAction);
+
+  });
+
   it("should override with component", () => {
     render(
       <Layout
