@@ -5,6 +5,9 @@ import {
 import { TopNavBar } from './TopNavBar'
 import { LeftNavDrawer } from './LeftNavDrawer'
 import { filterNavigationActions } from './navigation.util';
+import {
+  PopoverRBProps
+} from '../popover/PopoverRB'
 
 export const Layout = ({
   label,
@@ -201,4 +204,12 @@ export interface NavigationAction {
    * Snap custom component to position in app bar
    */
   snapPosition?: "left" | "center" | "right";
+  /**
+   * Display a Popover on click with this content
+   */
+  PopoverContent?: Array<React.ReactElement> | React.ReactElement,
+  /**
+   * All properties for Popover
+   */
+  PopoverProps?: PopoverRBProps,
 }
