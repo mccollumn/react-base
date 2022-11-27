@@ -2,12 +2,14 @@ import React from 'react';
 import {
   IconButton,
   Tooltip,
+  Box,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import {
-  NavigationAction
+  NavigationAction, PopoverNavigationActionProps
 } from './Layout';
 import {
-  PopoverRBProps, PopoverRB
+  PopoverRB
 } from '../popover/PopoverRB'
 
 /**
@@ -17,17 +19,29 @@ export const Action = ({
   action,
   navClickHandler = () => {},
   selectedNav,
-  PopoverContent,
-  PopoverProps
 }: ActionProps) => {
 
   if (action.Component) {
     return React.cloneElement(action.Component, {key: action.key});
   }
+
   const clickHandler = () => navClickHandler(action);
 
   // Action will open a popover on click
-  if (PopoverContent) {
+  if (action.popoverActions) {
+
+    const PopoverProps = {};
+    const PopoverContent = action.popoverActions.map((
+      p: PopoverNavigationActionProps,
+      idx: number
+    ) => {
+      return (
+        <NavPopoverMenuItem
+          key={idx}
+          popoverAction={p}
+        />
+      );
+    });
 
     return (
       <PopoverRB
@@ -74,6 +88,43 @@ const NavAction = ({
   );
 }
 
+const NavPopoverMenuItem = ({
+  popoverAction
+}: NavPopoverMenuItemProps) => {
+
+  return (
+    <NavPopoverMenuItemStyled
+      className={`nav-popover-menu-item`}
+    >
+      <Box className={'nav-menu-icon'}>
+        {popoverAction.icon}
+      </Box>
+
+      <Box className={'nav-menu-label'}>
+        {popoverAction.label}
+      </Box>
+
+    </NavPopoverMenuItemStyled>
+  );
+}
+
+const NavPopoverMenuItemStyled = styled(Box)(({
+  theme
+}: any) => {
+  return {
+
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1.5),
+    height: theme.spacing(5),
+    cursor: 'pointer',
+
+    '.nav-menu-label': {
+      whiteSpace: 'nowrap',
+    }
+  };
+});
+
 export interface ActionProps {
   /**
    * Navigation action properties
@@ -88,12 +139,12 @@ export interface ActionProps {
    * When user clicks a navigation item
    */
   navClickHandler: Function,
+};
+
+export interface NavPopoverMenuItemProps {
   /**
-   * Display a Popover on click with this content
+   * Navigation action properties
+   * Displays navigation button/icon to user
    */
-  PopoverContent?: Array<React.ReactElement> | React.ReactElement,
-  /**
-   * All properties for Popover
-   */
-  PopoverProps?: PopoverRBProps,
+  popoverAction: PopoverNavigationActionProps,
 };
