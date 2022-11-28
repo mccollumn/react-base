@@ -28,7 +28,7 @@ export const PopoverRB = ({
       return;
     }
     setAnchorElement(anchorRef.current);
-  }, [anchorRef.current]);
+  }, [anchorRef]);
 
   // Handle single child
   if (!Array.isArray(children)) {
@@ -129,7 +129,7 @@ const DefaultActionComponent = ({
   );
 };
 
-const DefaultChildComponent = ({ }) => {
+const DefaultChildComponent = () => {
   return (
     <div>
       Add Popover Content
