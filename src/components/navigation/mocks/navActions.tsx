@@ -4,7 +4,8 @@ import {
   Settings,
   Assessment,
   Apps,
-  Login,
+  Logout,
+  ManageAccounts
 } from "@mui/icons-material";
 import { NavigationAction } from "../Layout";
 import SearchInput from "../../form/SearchInput";
@@ -75,11 +76,25 @@ export const mockNavActions: Array<NavigationAction> = [
     ariaLabel: "Avatar",
     authFilter: "authorized",
     position: "top",
+    popoverActions: [
+      {
+        key: "ACCOUNT_SETTINGS",
+        label: "Account Settings",
+        icon: <ManageAccounts />,
+        ariaLabel: "Account Settings",
+      },
+      {
+        key: "LOGOUT",
+        label: "Logout",
+        icon: <Logout />,
+        ariaLabel: "Logout",
+      },
+    ]
   },
   {
     key: "Login",
     label: "Login",
-    icon: <Login />,
+    icon: <Person />,
     ariaLabel: "Login",
     authFilter: "unauthorized",
     position: "top",

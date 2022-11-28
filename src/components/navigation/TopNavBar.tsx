@@ -10,6 +10,7 @@ import {
 import { Menu } from "@mui/icons-material";
 import { styled } from '@mui/material/styles';
 import { NavigationAction } from './Layout';
+import { Action } from './Action';
 
 export const TopNavBar = ({
   topNavActions,
@@ -93,23 +94,15 @@ const mapNavigationAction = (
   navClickHandler: Function,
   selectedNav?: NavigationAction
 ) => {
-  if (action.Component) {
-    return React.cloneElement(action.Component, {key: action.key});
-  }
-  const clickHandler = () => navClickHandler(action);
-  const selected = action.key === selectedNav?.key;
+
   return (
-    <Tooltip key={action.key} title={action.label || ""}>
-      <IconButton
-        color={selected ? "secondary" : "inherit"}
-        key={action.key}
-        onClick={clickHandler}
-        aria-label={action.ariaLabel}
-      >
-        {action.icon}
-      </IconButton>
-    </Tooltip>
-  );
+    <Action
+      key={action.key}
+      action={action}
+      selectedNav={selectedNav}
+      navClickHandler={navClickHandler}
+    />
+  )
 };
 
 const AppBarStyled = styled(AppBar)(({

@@ -201,4 +201,14 @@ export interface NavigationAction {
    * Snap custom component to position in app bar
    */
   snapPosition?: "left" | "center" | "right";
+  /**
+   * Nested Navigation Popover Actions
+   * All actions will be listed beneath
+   * as options within a Popover on click
+   */
+  popoverActions?: Array<PopoverNavigationActionProps>;
+}
+
+export interface PopoverNavigationActionProps extends Omit<NavigationAction, 'position'| 'authFilter'> {
+
 }
