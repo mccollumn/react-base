@@ -5,27 +5,37 @@ import { ModalRB } from './ModalRB';
 console.error = jest.fn();
 
 describe('<ModalRB/>', () => {
-  it('Should open/close default Modal', async () => {
-    const mockLabel = 'I am popover';
-    const mockClose = jest.fn();
-    const MockBody = ({ closePopover }: any) => (
-      <div onClick={closePopover}>{mockLabel}</div>
-    );
 
-    render(
-      <ModalRB/>
-    );
+  it('Should open an close default modal', () => {
+    render(<ModalRB />);
 
-    expect(1).toEqual(1);
+    fireEvent.click(screen.getByText('Open Modal'));
 
-    /* fireEvent.click(await screen.findByText('Open Popover'));
+    fireEvent.click(screen.getByText('Close Modal'));
 
-* expect(
-*   await screen.findByText(mockLabel)
-* ).toBeInTheDocument();
-
-* fireEvent.click(await screen.findByText(mockLabel));
-
-* expect(mockClose).toBeCalled(); */
+    expect(
+      screen.getByText('Open Modal')
+    ).toBeInTheDocument();
   });
-});
+
+  it('Should set open status and override internal open', async () => {
+    const { rerender } = render(
+      <ModalRB
+        open={false}
+      />
+    );
+
+    rerender(
+      <ModalRB
+        open={true}
+      />
+    )
+
+    fireEvent.click(screen.getByText('Close Modal'));
+
+    expect(
+      screen.getByText('Open Modal')
+    ).toBeInTheDocument();
+  });
+}
+);
