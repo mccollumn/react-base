@@ -207,8 +207,13 @@ export interface NavigationAction {
    * as options within a Popover on click
    */
   popoverActions?: Array<PopoverNavigationActionProps>;
+  /**
+   * Displays a Modal on click with this component as Body
+   */
+  ModalBody?: React.ReactElement;
+
 }
 
-export interface PopoverNavigationActionProps extends Omit<NavigationAction, 'position'| 'authFilter'> {
+export interface PopoverNavigationActionProps extends Omit<NavigationAction, 'position' | 'authFilter'> {
 
 }

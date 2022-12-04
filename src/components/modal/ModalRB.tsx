@@ -12,13 +12,10 @@ import { styled } from '@mui/material/styles';
 export const ModalRB = ({
   ActionComponent = <DefaultActionComponent />,
   BodyComponent = <DefaultBodyComponent />,
-  customStyles,
   disableBackdropClick = true,
   closePopover = () => { },
   title,
   description,
-  width = '75%',
-  maxWidth = 'inherit',
   open = false,
   ...props
 }: ModalRBProps) => {
@@ -226,21 +223,9 @@ export interface ModalRBProps {
    */
   description?: string;
   /**
-   * Width of the Modal body (Ex: 75%)
-   */
-  width?: string;
-  /**
-   * Max Width of the Modal body (Ex: 75%)
-   */
-  maxWidth?: string;
-  /**
    * Closes the parent popover when Modal closes
    */
   closePopover?: () => void;
-  /**
-   * Extend DataGrid custom css styles
-   */
-  customStyles?: Object;
   /**
    * Prevent closing the modal on backdrop click
    */

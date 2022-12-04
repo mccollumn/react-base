@@ -53,7 +53,7 @@ export const Login = ({
   )
 }
 
-interface LoginProps extends FormWrapperProps {
+interface LoginProps extends Omit<FormWrapperProps, 'onSuccess' | 'defaultValues'>{
   /**
    * Handler for when then Login form is submitted
    */
