@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import { NavigationAction } from "../Layout";
 import SearchInput from "../../form/SearchInput";
+import { Login } from "../../../pages/Login";
 
 export const mockNavActions: Array<NavigationAction> = [
   {
@@ -76,6 +77,7 @@ export const mockNavActions: Array<NavigationAction> = [
     ariaLabel: "Avatar",
     authFilter: "authorized",
     position: "top",
+    // Displays a popover menu on click
     popoverActions: [
       {
         key: "ACCOUNT_SETTINGS",
@@ -98,5 +100,11 @@ export const mockNavActions: Array<NavigationAction> = [
     ariaLabel: "Login",
     authFilter: "unauthorized",
     position: "top",
+    // Display a Modal on Click
+    ModalBody: (
+      <Login
+        onLoginSubmit={(values: any) => console.info(values) }
+      />
+    ),
   },
 ];

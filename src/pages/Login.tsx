@@ -13,6 +13,7 @@ export const Login = ({
   submitButtonText = 'Login',
   defaultUsername,
   defaultPassword,
+  closeModal = () => {}
 }: LoginProps) => {
   const defaultValues = {
     username: defaultUsername,
@@ -23,9 +24,14 @@ export const Login = ({
     onLoginSubmit(values);
   }
 
+  const onCancel = () => {
+    closeModal();
+  }
+
   return (
     <FormWrapper
       onSuccess={onSuccess}
+      onCancel={onCancel}
       defaultValues={defaultValues}
       title={title}
       description={description}
@@ -53,7 +59,7 @@ export const Login = ({
   )
 }
 
-interface LoginProps extends FormWrapperProps {
+interface LoginProps extends Omit<FormWrapperProps, 'onSuccess' | 'defaultValues'>{
   /**
    * Handler for when then Login form is submitted
    */
@@ -66,4 +72,8 @@ interface LoginProps extends FormWrapperProps {
    * Populate default password field
    */
   defaultPassword?: string;
+  /**
+   * Injected if parent is a Modal
+   */
+  closeModal?: Function
 }

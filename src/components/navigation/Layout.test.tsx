@@ -64,6 +64,22 @@ describe("<Layout />", () => {
 
   });
 
+  it("Select Modal top navigation item", async () => {
+    render(
+      <Layout
+        navigationActions={mockNavActions}
+        //navigationClick={mockNavigationClick}
+        isAuthorized={false}
+      />
+    );
+
+    fireEvent.click(screen.getByLabelText("Login"));
+
+    const modalBody = await screen.findByTestId("modalrb-body");
+    expect(modalBody).toBeInTheDocument();
+
+  });
+
   it("should override with component", () => {
     render(
       <Layout

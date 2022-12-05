@@ -13,13 +13,16 @@ import {
 import {
   PopoverRB
 } from '../popover/PopoverRB'
+import {
+  ModalRB
+} from '../modal/ModalRB'
 
 /**
  * Standard Navigation Button/Icon
  */
 export const Action = ({
   action,
-  navClickHandler = () => {},
+  navClickHandler,
   selectedNav,
 }: ActionProps) => {
 
@@ -32,33 +35,37 @@ export const Action = ({
   // Action will open a popover on click
   if (action.popoverActions) {
 
-    const PopoverProps = {};
-    const PopoverContent = action.popoverActions.map((
-      p: PopoverNavigationActionProps,
-      idx: number
-    ) => {
-      return (
-        <NavPopoverMenuItem
-          key={idx}
-          popoverAction={p}
-          navClickHandler={navClickHandler}
-          selectedNav={selectedNav}
-        />
-      );
-    });
-
     return (
       <PopoverRB
-        {...PopoverProps}
         ActionComponent={
           <NavAction
             action={action}
             selectedNav={selectedNav}
           />
         }>
-        {PopoverContent}
+
+        <PopoverContent
+          action={action}
+          navClickHandler={navClickHandler}
+          selectedNav={selectedNav}
+        />
+
       </PopoverRB>
     );
+  }
+
+  if(action.ModalBody) {
+    return (
+      <ModalRB
+        ActionComponent={
+          <NavAction
+            action={action}
+            selectedNav={selectedNav}
+          />
+        }
+        BodyComponent={action.ModalBody}
+      />
+    )
   }
 
   return (
@@ -150,6 +157,30 @@ const NavPopoverMenuItemStyled = styled(ButtonBase)(({
     }
   };
 });
+
+const PopoverContent = ({
+  action,
+  navClickHandler = () => {},
+  selectedNav
+}: any) => {
+
+  return action.popoverActions.map((
+    p: PopoverNavigationActionProps,
+    idx: number
+  ) => {
+    return (
+      <NavPopoverMenuItem
+        key={idx}
+        popoverAction={p}
+        navClickHandler={navClickHandler}
+        selectedNav={selectedNav}
+      />
+    );
+  });
+  
+}
+
+
 
 export interface ActionProps {
   /**
