@@ -17,7 +17,7 @@ export const ModalRB = ({
   title,
   description,
   open = false,
-  ...props
+  sx
 }: ModalRBProps) => {
 
   const [openState, setOpenState] = React.useState(open);
@@ -59,11 +59,11 @@ export const ModalRB = ({
 
       <Modal
         aria-labelledby="modalrb-title"
-        aria-describedby={`modalrb-description`}
+        aria-describedby={"modalrb-description"}
         data-testid="modalrb-modal"
         open={openState}
-        onClose={closeModal}
-        {...props}>
+        sx={sx}
+        onClose={closeModal}>
 
         <ModalBody
           title={title}
@@ -234,4 +234,8 @@ export interface ModalRBProps {
    * Override internal open/close behavior
    */
   open?: boolean;
+  /**
+   * CSS custom styling
+   */
+  sx?: Object
 }
