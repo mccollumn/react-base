@@ -13,6 +13,9 @@ import {
 import {
   PopoverRB
 } from '../popover/PopoverRB'
+import {
+  ModalRB
+} from '../modal/ModalRB'
 
 /**
  * Standard Navigation Button/Icon
@@ -49,6 +52,20 @@ export const Action = ({
 
       </PopoverRB>
     );
+  }
+
+  if(action.ModalBody) {
+    return (
+      <ModalRB
+        ActionComponent={
+          <NavAction
+            action={action}
+            selectedNav={selectedNav}
+          />
+        }
+        BodyComponent={action.ModalBody}
+      />
+    )
   }
 
   return (

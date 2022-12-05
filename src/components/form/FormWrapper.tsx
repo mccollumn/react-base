@@ -12,6 +12,7 @@ import { FormButtonRow } from './FormButtonRow';
  */
 export const FormWrapper = ({
   onSuccess,
+  onCancel,
   defaultValues,
   submitButtonText,
   resetButtonText,
@@ -49,6 +50,7 @@ export const FormWrapper = ({
         <FormButtonRow
           submitButtonText={submitButtonText}
           resetButtonText={resetButtonText}
+          onCancel={onCancel}
         />
 
       </Box>
@@ -104,6 +106,10 @@ export interface FormWrapperProps {
    * Form submit handler
    */
   onSuccess: any
+  /**
+   * Cancel button click override
+   */
+  onCancel?: Function
   /**
    * Form default values
    */
