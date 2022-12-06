@@ -77,6 +77,9 @@ export const Action = ({
   );
 }
 
+/**
+ * Standard Navigation Action for App Bar and Drawer
+ */
 const NavAction = ({
   action,
   selectedNav,
@@ -136,6 +139,29 @@ const NavPopoverMenuItem = ({
   );
 }
 
+const PopoverContent = ({
+  action,
+  navClickHandler = () => {},
+  selectedNav,
+  closePopover
+}: any) => {
+
+  return action.popoverActions.map((
+    p: PopoverNavigationActionProps,
+    idx: number
+  ) => {
+    return (
+      <NavPopoverMenuItem
+        key={idx}
+        popoverAction={p}
+        navClickHandler={navClickHandler}
+        selectedNav={selectedNav}
+        closePopover={closePopover}
+      />
+    );
+  });
+}
+
 const NavPopoverMenuItemStyled = styled(ButtonBase)(({
   theme
 }: any) => {
@@ -157,30 +183,6 @@ const NavPopoverMenuItemStyled = styled(ButtonBase)(({
     }
   };
 });
-
-const PopoverContent = ({
-  action,
-  navClickHandler = () => {},
-  selectedNav
-}: any) => {
-
-  return action.popoverActions.map((
-    p: PopoverNavigationActionProps,
-    idx: number
-  ) => {
-    return (
-      <NavPopoverMenuItem
-        key={idx}
-        popoverAction={p}
-        navClickHandler={navClickHandler}
-        selectedNav={selectedNav}
-      />
-    );
-  });
-  
-}
-
-
 
 export interface ActionProps {
   /**
