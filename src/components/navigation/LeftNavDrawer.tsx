@@ -3,16 +3,13 @@ import {
   Box,
   Drawer,
   List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Divider,
   IconButton,
   Collapse,
-  Tooltip,
 } from "@mui/material";
 import { NavigationAction } from './Layout';
 import { filterNavigationActions } from './navigation.util';
+import { Action } from './Action';
 
 export const LeftNavDrawer = ({
   leftNavigationActions = [],
@@ -110,32 +107,15 @@ const NavigationList = ({
       })
     })
     .map((action, index) => {
-      const handleClick = () => {
-        navigationClick(action);
-      };
-      if (action.divider) {
-        return <Divider key={index} />;
-      }
-      if (action.Component) {
-        return <ComponentOverride component={action.Component} key={index} />;
-      }
       return (
-        <ListItemButton
-          selected={action.key === selectedNav?.key}
+        <Action
           key={index}
-          onClick={handleClick}
-        >
-          <Tooltip title={action.label || ''}>
-            <ListItemIcon>{action.icon}</ListItemIcon>
-          </Tooltip >
-          <ListItemText>{action.label}</ListItemText>
-        </ListItemButton>
+          action={action}
+          selectedNav={selectedNav}
+          navClickHandler={navigationClick}
+        />
       );
     });
-};
-
-const ComponentOverride = ({ component }: any) => {
-  return <div>{component}</div>;
 };
 
 interface NavigationListProps {

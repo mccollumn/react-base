@@ -4,7 +4,11 @@ import {
   Tooltip,
   Box,
   ButtonBase,
-  Typography
+  Typography,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import {
@@ -30,11 +34,14 @@ export const Action = ({
     return React.cloneElement(action.Component, {key: action.key});
   }
 
+  if (action.divider) {
+    return <Divider />;
+  }
+
   const clickHandler = () => navClickHandler(action);
 
   // Action will open a popover on click
   if (action.popoverActions) {
-
     return (
       <PopoverRB
         ActionComponent={
@@ -86,7 +93,21 @@ const NavAction = ({
   onClick
 }: any) => {
 
-  const selected = action.key === selectedNav?.key;
+  const selected = action === selectedNav;
+
+  // Left Drawer Navigation Item
+  if(action.position === 'left') {
+    return (
+      <ListItemButton
+        selected={selected}
+        onClick={onClick}>
+        <Tooltip title={action.label || ''}>
+          <ListItemIcon>{action.icon}</ListItemIcon>
+        </Tooltip >
+        <ListItemText>{action.label}</ListItemText>
+      </ListItemButton>
+    );
+  }
 
   return (
     <Tooltip key={action.key} title={action.label || ""}>
@@ -94,8 +115,7 @@ const NavAction = ({
         color={selected ? "secondary" : "inherit"}
         key={action.key}
         onClick={onClick}
-        aria-label={action.ariaLabel}
-      >
+        aria-label={action.ariaLabel}>
         {action.icon}
       </IconButton>
     </Tooltip>
