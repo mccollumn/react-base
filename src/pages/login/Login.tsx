@@ -4,7 +4,7 @@ import {
 } from 'react-hook-form-mui'
 import {
   FormWrapper, FormWrapperProps
-} from '../components/form/FormWrapper'
+} from '../../components/form/FormWrapper'
 
 export const Login = ({
   onLoginSubmit,
