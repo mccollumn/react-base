@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import { NavigationAction } from "../Layout";
 import SearchInput from "../../form/SearchInput";
-import { Login } from "../../../pages/Login";
+import { Login } from "../../../pages/login/Login";
 
 export const mockNavActions: Array<NavigationAction> = [
   {
