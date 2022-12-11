@@ -8,8 +8,9 @@ import {
 
 export const Login = ({
   onLoginSubmit = () => {},
+  onRegisterRedirect,
   title = 'Member Login',
-  description,
+  description = <DefaultDescription />,
   submitButtonText = 'Login',
   defaultEmail,
   defaultPassword,
@@ -31,6 +32,14 @@ export const Login = ({
 
   const onCancel = () => {
     closeModal();
+  }
+
+  if(!description) {
+    description = (
+      <DefaultDescription
+        onRegisterRedirect={onRegisterRedirect}
+      />
+    );
   }
 
   return (
@@ -85,6 +94,32 @@ export const Login = ({
   )
 }
 
+const DefaultDescription = ({
+  onRegisterRedirect = () => {},
+}: any) => {
+
+  const clickHandler = (event: any) => {
+    event.preventDefault();
+    onRegisterRedirect();
+  }
+
+  return (
+    <div className='login-description'>
+      Don't have an account?
+
+      &nbsp;&nbsp;
+
+      <a
+        href='#'
+        onClick={clickHandler}>
+
+        Click Here
+
+      </a>
+    </div>
+  );
+}
+
 export const specialCharacterRegex = /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~\/]/g;
 export const numberRegex = /[0-9]/g;
 export const matchPasswordValidate = ({
@@ -105,6 +140,10 @@ export interface LoginProps extends Omit<FormWrapperProps, 'onSuccess' | 'defaul
    * Handler when Login form is submitted
    */
   onLoginSubmit?: (formValues: any) => void;
+  /**
+   * on User redirect to "Register" page
+   */
+  onRegisterRedirect?: () => void,
   /**
    * Minimum password length allowed
    */

@@ -127,8 +127,9 @@ export interface FormWrapperProps {
   title?: string
   /**
    * Descriptive text for form
+   * or React component to display
    */
-  description?: string
+  description?: string | React.ReactElement | null
   /**
    * Displays submit button with given text
    * Submits form on click

@@ -16,6 +16,7 @@ import {
 
 export const Register = ({
   onRegisterSubmit,
+  onLoginRedirect,
   title = 'Register',
   description,
   submitButtonText = 'Register',
@@ -40,6 +41,14 @@ export const Register = ({
 
   const onCancel = () => {
     closeModal();
+  }
+
+  if (!description) {
+    description = (
+      <DefaultDescription
+        onLoginRedirect={onLoginRedirect}
+      />
+    );
   }
 
   return (
@@ -104,9 +113,39 @@ export const Register = ({
   );
 };
 
+const DefaultDescription = ({
+  onLoginRedirect = () => {},
+}: any) => {
+
+  const clickHandler = (event: any) => {
+    event.preventDefault();
+    onLoginRedirect();
+  }
+
+  return (
+    <div className='register-description'>
+      Already have an account?
+
+      &nbsp;&nbsp;
+
+      <a
+        href='#'
+        onClick={clickHandler}>
+
+        Click Here
+
+      </a>
+    </div>
+  );
+}
+
 export interface RegisterProps extends LoginProps {
   /**
    * Handler when Register form is submitted
    */
   onRegisterSubmit: (formValues: any) => void;
+  /**
+   * on User redirect to "Login" page
+   */
+  onLoginRedirect?: () => void,
 }
