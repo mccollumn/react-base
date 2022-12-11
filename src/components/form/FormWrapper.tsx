@@ -5,6 +5,7 @@ import {
   Typography
 } from '@mui/material';
 import { FormButtonRow } from './FormButtonRow';
+import { styled } from '@mui/material/styles';
 
 /**
  * Wrapper around react-hook-form-mui from
@@ -25,17 +26,9 @@ export const FormWrapper = ({
       onSuccess={onSuccess}
       defaultValues={defaultValues}>
 
-      <Box
+      <FormWrapperStyled
         className='form-wrapper-container'
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '24px',
-          '.MuiFormHelperText-root.Mui-error': {
-            position: 'absolute',
-            bottom: '-22px'
-          }
-        }}>
+      >
 
         <FormTitle
           title={title}
@@ -53,11 +46,25 @@ export const FormWrapper = ({
           onCancel={onCancel}
         />
 
-      </Box>
+      </FormWrapperStyled>
 
     </FormContainer>
   )
 }
+
+const FormWrapperStyled = styled(Box)(({
+  theme
+}: any) => {
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
+    '.MuiFormHelperText-root': {
+      position: 'absolute',
+      bottom: theme.spacing(-2.5)
+    }
+  }
+});
 
 const FormTitle = ({
   title
