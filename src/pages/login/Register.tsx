@@ -1,17 +1,25 @@
 import {
   TextFieldElement,
   PasswordElement,
+  PasswordRepeatElement
 } from 'react-hook-form-mui'
 import {
   FormWrapper, FormWrapperProps
 } from '../../components/form/FormWrapper'
+import {
+  LoginProps,
+  matchPasswordValidate,
+  numberRegex,
+  specialCharacterRegex,
+} from './Login'
 
-export const Login = ({
-  onLoginSubmit = () => {},
-  onRegisterRedirect,
-  title = 'Member Login',
-  description = <DefaultDescription />,
-  submitButtonText = 'Login',
+
+export const Register = ({
+  onRegisterSubmit,
+  onLoginRedirect,
+  title = 'Register',
+  description,
+  submitButtonText = 'Register',
   defaultEmail,
   defaultPassword,
   minPasswordLength = 10,
@@ -19,14 +27,15 @@ export const Login = ({
   minNumberLength = 2,
   closeModal = () => {},
   ...props
-}: LoginProps) => {
+}:RegisterProps) => {
+
   const defaultValues = {
     email: defaultEmail,
     password: defaultPassword,
   };
 
   const onSuccess = (values: any) => {
-    onLoginSubmit(values);
+    onRegisterSubmit(values);
     closeModal();
   }
 
@@ -34,10 +43,10 @@ export const Login = ({
     closeModal();
   }
 
-  if(!description) {
+  if (!description) {
     description = (
       <DefaultDescription
-        onRegisterRedirect={onRegisterRedirect}
+        onLoginRedirect={onLoginRedirect}
       />
     );
   }
@@ -90,22 +99,32 @@ export const Login = ({
         }}
       />
 
+      <PasswordRepeatElement
+        passwordFieldName='password'
+        label='Confirm Password'
+        name='confirmPassword'
+        type={'password'}
+        validation={{
+          required: 'Password confirmation is required'
+        }}
+      />
+
     </FormWrapper>
-  )
-}
+  );
+};
 
 const DefaultDescription = ({
-  onRegisterRedirect = () => {},
+  onLoginRedirect = () => {},
 }: any) => {
 
   const clickHandler = (event: any) => {
     event.preventDefault();
-    onRegisterRedirect();
+    onLoginRedirect();
   }
 
   return (
-    <div className='login-description'>
-      Don't have an account?
+    <div className='register-description'>
+      Already have an account?
 
       &nbsp;&nbsp;
 
@@ -120,52 +139,13 @@ const DefaultDescription = ({
   );
 }
 
-export const specialCharacterRegex = /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~\/]/g;
-export const numberRegex = /[0-9]/g;
-export const matchPasswordValidate = ({
-  p = '',
-  message = '',
-  regex,
-  minNumber
-}: any) => {
-  const validArray = p.match(
-    regex
-  ) || [];
-  const isValid = validArray.length >= minNumber;
-  return isValid ? true : message;
-}
-
-export interface LoginProps extends Omit<FormWrapperProps, 'onSuccess' | 'defaultValues'> {
+export interface RegisterProps extends LoginProps {
   /**
-   * Handler when Login form is submitted
+   * Handler when Register form is submitted
    */
-  onLoginSubmit?: (formValues: any) => void;
+  onRegisterSubmit: (formValues: any) => void;
   /**
-   * on User redirect to "Register" page
+   * on User redirect to "Login" page
    */
-  onRegisterRedirect?: () => void,
-  /**
-   * Minimum password length allowed
-   */
-  minPasswordLength?: number,
-  /**
-   * Minimum special characters to include in password
-   */
-  minSpecialCharLength?: number,
-  /**
-   * Minimum special characters to include
-   */
-  minNumberLength?: number,
-  /**
-   * Populate default username field
-   */
-  defaultEmail?: string;
-  /**
-   * Populate default password field
-   */
-  defaultPassword?: string;
-  /**
-   * Injected if parent is a Modal
-   */
-  closeModal?: Function
+  onLoginRedirect?: () => void,
 }

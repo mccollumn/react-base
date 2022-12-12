@@ -1,25 +1,25 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Login } from "./Login";
+import { Register } from "./Register";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Pages/Login",
-  component: Login,
+  title: "Pages/Register",
+  component: Register,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
 
   },
-} as ComponentMeta<typeof Login>;
+} as ComponentMeta<typeof Register>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Login> = (args) => <Login {...args} />;
+const Template: ComponentStory<typeof Register> = (args) => <Register {...args} />;
 
-export const LoginPage = Template.bind({});
-LoginPage.args = {
-  onLoginSubmit:  (formValues: any) => {
+export const RegisterPage = Template.bind({});
+RegisterPage.args = {
+  onRegisterSubmit:  (formValues: any) => {
     console.info(
-      'Login submit values', formValues
+      'Register submit values', formValues
     );
   }
 };
