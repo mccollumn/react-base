@@ -8,9 +8,7 @@ export default {
   component: Login,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    /* navigationActions: {
-     *   defaultValue: defaultNavActions,
-     * }, */
+
   },
 } as ComponentMeta<typeof Login>;
 

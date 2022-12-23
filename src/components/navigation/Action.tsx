@@ -4,7 +4,11 @@ import {
   Tooltip,
   Box,
   ButtonBase,
-  Typography
+  Typography,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import {
@@ -13,13 +17,16 @@ import {
 import {
   PopoverRB
 } from '../popover/PopoverRB'
+import {
+  ModalRB
+} from '../modal/ModalRB'
 
 /**
  * Standard Navigation Button/Icon
  */
 export const Action = ({
   action,
-  navClickHandler = () => {},
+  navClickHandler,
   selectedNav,
 }: ActionProps) => {
 
@@ -27,38 +34,45 @@ export const Action = ({
     return React.cloneElement(action.Component, {key: action.key});
   }
 
+  if (action.divider) {
+    return <Divider />;
+  }
+
   const clickHandler = () => navClickHandler(action);
 
   // Action will open a popover on click
   if (action.popoverActions) {
-
-    const PopoverProps = {};
-    const PopoverContent = action.popoverActions.map((
-      p: PopoverNavigationActionProps,
-      idx: number
-    ) => {
-      return (
-        <NavPopoverMenuItem
-          key={idx}
-          popoverAction={p}
-          navClickHandler={navClickHandler}
-          selectedNav={selectedNav}
-        />
-      );
-    });
-
     return (
       <PopoverRB
-        {...PopoverProps}
         ActionComponent={
           <NavAction
             action={action}
             selectedNav={selectedNav}
           />
         }>
-        {PopoverContent}
+
+        <PopoverContent
+          action={action}
+          navClickHandler={navClickHandler}
+          selectedNav={selectedNav}
+        />
+
       </PopoverRB>
     );
+  }
+
+  if(action.ModalBody) {
+    return (
+      <ModalRB
+        ActionComponent={
+          <NavAction
+            action={action}
+            selectedNav={selectedNav}
+          />
+        }
+        BodyComponent={action.ModalBody}
+      />
+    )
   }
 
   return (
@@ -70,13 +84,30 @@ export const Action = ({
   );
 }
 
+/**
+ * Standard Navigation Action for App Bar and Drawer
+ */
 const NavAction = ({
   action,
   selectedNav,
   onClick
 }: any) => {
 
-  const selected = action.key === selectedNav?.key;
+  const selected = action === selectedNav;
+
+  // Left Drawer Navigation Item
+  if(action.position === 'left') {
+    return (
+      <ListItemButton
+        selected={selected}
+        onClick={onClick}>
+        <Tooltip title={action.label || ''}>
+          <ListItemIcon>{action.icon}</ListItemIcon>
+        </Tooltip >
+        <ListItemText>{action.label}</ListItemText>
+      </ListItemButton>
+    );
+  }
 
   return (
     <Tooltip key={action.key} title={action.label || ""}>
@@ -84,8 +115,7 @@ const NavAction = ({
         color={selected ? "secondary" : "inherit"}
         key={action.key}
         onClick={onClick}
-        aria-label={action.ariaLabel}
-      >
+        aria-label={action.ariaLabel}>
         {action.icon}
       </IconButton>
     </Tooltip>
@@ -127,6 +157,29 @@ const NavPopoverMenuItem = ({
 
     </NavPopoverMenuItemStyled>
   );
+}
+
+const PopoverContent = ({
+  action,
+  navClickHandler = () => {},
+  selectedNav,
+  closePopover
+}: any) => {
+
+  return action.popoverActions.map((
+    p: PopoverNavigationActionProps,
+    idx: number
+  ) => {
+    return (
+      <NavPopoverMenuItem
+        key={idx}
+        popoverAction={p}
+        navClickHandler={navClickHandler}
+        selectedNav={selectedNav}
+        closePopover={closePopover}
+      />
+    );
+  });
 }
 
 const NavPopoverMenuItemStyled = styled(ButtonBase)(({

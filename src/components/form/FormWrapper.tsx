@@ -5,6 +5,7 @@ import {
   Typography
 } from '@mui/material';
 import { FormButtonRow } from './FormButtonRow';
+import { styled } from '@mui/material/styles';
 
 /**
  * Wrapper around react-hook-form-mui from
@@ -12,6 +13,7 @@ import { FormButtonRow } from './FormButtonRow';
  */
 export const FormWrapper = ({
   onSuccess,
+  onCancel,
   defaultValues,
   submitButtonText,
   resetButtonText,
@@ -24,17 +26,9 @@ export const FormWrapper = ({
       onSuccess={onSuccess}
       defaultValues={defaultValues}>
 
-      <Box
+      <FormWrapperStyled
         className='form-wrapper-container'
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '24px',
-          '.MuiFormHelperText-root.Mui-error': {
-            position: 'absolute',
-            bottom: '-22px'
-          }
-        }}>
+      >
 
         <FormTitle
           title={title}
@@ -49,13 +43,28 @@ export const FormWrapper = ({
         <FormButtonRow
           submitButtonText={submitButtonText}
           resetButtonText={resetButtonText}
+          onCancel={onCancel}
         />
 
-      </Box>
+      </FormWrapperStyled>
 
     </FormContainer>
   )
 }
+
+const FormWrapperStyled = styled(Box)(({
+  theme
+}: any) => {
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
+    '.MuiFormHelperText-root': {
+      position: 'absolute',
+      bottom: theme.spacing(-2.5)
+    }
+  }
+});
 
 const FormTitle = ({
   title
@@ -105,6 +114,10 @@ export interface FormWrapperProps {
    */
   onSuccess: any
   /**
+   * Cancel button click override
+   */
+  onCancel?: Function
+  /**
    * Form default values
    */
   defaultValues: any
@@ -114,8 +127,9 @@ export interface FormWrapperProps {
   title?: string
   /**
    * Descriptive text for form
+   * or React component to display
    */
-  description?: string
+  description?: string | React.ReactElement | null
   /**
    * Displays submit button with given text
    * Submits form on click

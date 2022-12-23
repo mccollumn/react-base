@@ -12,6 +12,7 @@ import {
 export const FormButtonRow = ({
   submitButtonText = 'Submit',
   resetButtonText = 'Cancel',
+  onCancel
 }: FormButtonRow) => {
 
   const isShowButtons = [
@@ -28,6 +29,7 @@ export const FormButtonRow = ({
 
       <ResetButton
         resetButtonText={resetButtonText}
+        onCancel={onCancel}
       />
 
       <SubmitButton
@@ -53,7 +55,8 @@ const SubmitButton = ({
 }
 
 const ResetButton = ({
-  resetButtonText
+  resetButtonText,
+  onCancel
 }: any) => {
 
   if(!resetButtonText) {
@@ -62,6 +65,7 @@ const ResetButton = ({
 
   return (
     <ButtonRB
+      onClick={onCancel}
       color={'inherit'}>
       {resetButtonText}
     </ButtonRB>
@@ -88,4 +92,8 @@ export interface FormButtonRow {
    * Resets form with default values on click
    */
   resetButtonText?: string
+  /**
+   * Cancel button click override
+   */
+  onCancel?: Function
 }
