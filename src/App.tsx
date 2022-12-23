@@ -16,7 +16,19 @@ import { SearchInput } from "./components/form/SearchInput";
 
 function App() {
   const navigate = useNavigate();
-  const clickHandler = (navAction: any) => {
+
+  // When a user clicks a navigation item
+  const navigationClickHandler = (navAction: NavigationAction) => {
+
+    // If there is an click handler set
+    if (typeof navAction.onClick === 'function') {
+      navAction.onClick();
+    }
+
+    // Navigate to path if it exists
+    if (!navAction.path) {
+      return;
+    }
     navigate(navAction.path);
   };
 
@@ -24,7 +36,7 @@ function App() {
     <Layout
       isAuthorized={true}
       navigationActions={navigationActions}
-      navigationClick={clickHandler}
+      navigationClick={navigationClickHandler}
     >
       <Routes>
         <Route path="/" element={<Homepage />} />
