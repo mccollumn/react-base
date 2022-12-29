@@ -16,7 +16,7 @@ Cypress.Commands.add('login', (email, password) => {
 
   cy.session([email, password], () => {
     const emailVal = email || Cypress.env('LOGIN_EMAIL');
-    const passwordVal = password || Cypress.env('LOGIN_PASSWORD');
+    const passwordVal = password || 'wrong'//Cypress.env('LOGIN_PASSWORD');
 
     cy.visit('/');
 
@@ -34,7 +34,7 @@ Cypress.Commands.add('login', (email, password) => {
 
     // Confirm email error text
     cy.get('.MuiFormHelperText-root')
-      .should('include.text', 'assword');
+      .should('include.text', 'assword ksjdlfdjsld');
 
     // Ensure we are logged in
     cy.get('[aria-label="Settings"]')
