@@ -13,6 +13,7 @@ jobs:
         with:
           start: npm run start
           wait-on: http://localhost:3000
+          env: configFile=ci
         env:
-          CYPRESS_LOGIN_EMAIL: ${{secrets.CYPRESS_LOGIN_EMAIL}}
-          CYPRESS_LOGIN_PASSWORD: ${{secrets.CYPRESS_LOGIN_PASSWORD}}
+          CYPRESS_LOGIN_EMAIL: ${{ secrets.CYPRESS_LOGIN_EMAIL }}
+          CYPRESS_LOGIN_PASSWORD: ${{ secrets.CYPRESS_LOGIN_PASSWORD }}
