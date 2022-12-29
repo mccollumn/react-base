@@ -26,17 +26,11 @@ Cypress.Commands.add('login', (email, password) => {
     // Fill Email
     cy.get('input[name="email"]').type(emailVal);
 
-    cy.get('input[name="email"]').should('have.value', 'poop');
-
     // Fill Password
     cy.get('input[name="password"]').type(passwordVal);
 
     // Click Submit
     cy.get('button[type="submit"]').click();
-
-    // Confirm email error text
-    cy.get('.MuiFormHelperText-root')
-      .should('include.text', 'assword ksjdlfdjsld');
 
     // Ensure we are logged in
     cy.get('[aria-label="Settings"]')
