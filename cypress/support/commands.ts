@@ -20,8 +20,6 @@ Cypress.Commands.add('login', (email, password) => {
 
     cy.visit('/');
 
-    cy.get(`[aria-label="${emailVal}"]`).click();
-
     // Open Login Navigation Item
     cy.get('[aria-label="Login"]').click();
 
@@ -33,6 +31,10 @@ Cypress.Commands.add('login', (email, password) => {
 
     // Click Submit
     cy.get('button[type="submit"]').click();
+
+    // Confirm email error text
+    cy.get('.MuiFormHelperText-root')
+      .should('include.text', 'assword');
 
     // Ensure we are logged in
     cy.get('[aria-label="Settings"]')
