@@ -15,7 +15,21 @@ Project forked from [https://github.com/mccollumn/react-base](react-base)
 # E2E Tests
 E2E tests are run with cypress
 
-* Run tests locally
+## Run tests locally
+
+### Set Login Environment Variables
+
+Add the Email/Password created in MongoDB Atlas as
+Environment Variables in your `.bash_aliases` file.
+
+These will be used to login on E2E tests
+
+```
+export CYPRESS_LOGIN_EMAIL=
+export CYPRESS_LOGIN_PASSWORD=
+```
+
+### Run Cypress E2E Tests
 ```
 npm run e2e
 ```
