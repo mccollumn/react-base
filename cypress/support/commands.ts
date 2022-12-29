@@ -16,7 +16,7 @@ Cypress.Commands.add('login', (email, password) => {
 
   cy.session([email, password], () => {
     const emailVal = email || Cypress.env('LOGIN_EMAIL');
-    const passwordVal = password || 'wrong'//Cypress.env('LOGIN_PASSWORD');
+    const passwordVal = password || Cypress.env('LOGIN_PASSWORD');
 
     cy.visit('/');
 
