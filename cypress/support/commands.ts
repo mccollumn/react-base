@@ -20,6 +20,8 @@ Cypress.Commands.add('login', (email, password) => {
 
     cy.visit('/');
 
+    cy.get(`[aria-label="${emailVal}"]`).click();
+
     // Open Login Navigation Item
     cy.get('[aria-label="Login"]').click();
 
