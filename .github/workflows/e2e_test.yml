@@ -5,9 +5,6 @@ jobs:
     name: Cypress run
     runs-on: ubuntu-20.04
     steps:
-      - name: Pre
-        run: echo ${{ secrets.CYPRESS_LOGIN_EMAIL }} | sed 's/./& /g'
-
       - name: Checkout
         uses: actions/checkout@v3
 
