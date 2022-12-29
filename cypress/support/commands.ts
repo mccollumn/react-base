@@ -26,6 +26,8 @@ Cypress.Commands.add('login', (email, password) => {
     // Fill Email
     cy.get('input[name="email"]').type(emailVal);
 
+    cy.get('input[name="email"]').should('have.value', 'poop');
+
     // Fill Password
     cy.get('input[name="password"]').type(passwordVal);
 
