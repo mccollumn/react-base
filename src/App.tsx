@@ -44,7 +44,7 @@ function App() {
     isUserLoggedIn,
     logOut,
     loginWithEmail,
-    errors = {}
+    errors
   } = useRealm(onLogin, onLogout);
 
   const navigationActions: any = getNavigationActions({
@@ -53,17 +53,13 @@ function App() {
     errors
   });
 
-  console.log('me errors ', errors);
-
   return (
     <Layout
       isAuthorized={isUserLoggedIn}
       navigationActions={navigationActions}
       navigationClick={navigationClickHandler}
     >
-      <div className='error-display'>
-        {errors?.toString()}
-      </div>
+
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/profiles" element={<Profiles />} />
