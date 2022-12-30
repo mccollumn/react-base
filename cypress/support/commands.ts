@@ -32,9 +32,6 @@ Cypress.Commands.add('login', (email, password) => {
     // Click Submit
     cy.get('button[type="submit"]').click();
 
-    cy.get('.error-display')
-      .should('include.text', 'valid emailssss');
-
     // Ensure we are logged in
     cy.get('[aria-label="Settings"]')
       .should('exist');
