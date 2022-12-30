@@ -15,6 +15,6 @@ jobs:
           wait-on: http://localhost:3000
           env: configFile=ci
         env:
-          REACT_APP_TRADER_APP_ID: ${{ secrets.REACT_APP_TRADER_APP_ID }}
+          REACT_APP_ATLAS_APP_ID: ${{ secrets.REACT_APP_ATLAS_APP_ID }}
           CYPRESS_LOGIN_EMAIL: ${{ secrets.CYPRESS_LOGIN_EMAIL }}
           CYPRESS_LOGIN_PASSWORD: ${{ secrets.CYPRESS_LOGIN_PASSWORD }}
