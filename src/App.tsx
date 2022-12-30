@@ -43,13 +43,17 @@ function App() {
   const {
     isUserLoggedIn,
     logOut,
-    loginWithEmail
+    loginWithEmail,
+    errors = {}
   } = useRealm(onLogin, onLogout);
 
   const navigationActions: any = getNavigationActions({
     loginWithEmail,
-    logOut    
+    logOut,
+    errors
   });
+
+  console.log('me errors ', errors);
 
   return (
     <Layout
@@ -57,6 +61,9 @@ function App() {
       navigationActions={navigationActions}
       navigationClick={navigationClickHandler}
     >
+      <div className='error-display'>
+        {errors?.toString()}
+      </div>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/profiles" element={<Profiles />} />
@@ -78,7 +85,8 @@ const User = () => <div>User</div>;
 
 const getNavigationActions = ({
   loginWithEmail,
-  logOut
+  logOut,
+  errors
 }: GetNavigationProps) => {
 
   return [
@@ -193,7 +201,11 @@ interface GetNavigationProps {
   /**
    * Logout handler
    */
-  logOut: Function
+  logOut: Function,
+  /**
+   * Login Errors
+   */
+  errors?: any
 }
 
 export default App;
