@@ -35,4 +35,16 @@ npm run e2e
 ```
 
 ## E2E Pipeline Testing
-E2E tests are run in github actions
+E2E tests are run in Github Actions
+
+### Set Github Repository Secrets
+
+Setup the following secrets in Github to give E2E tests access
+
+https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-an-organization
+
+```
+CYPRESS_LOGIN_EMAIL
+CYPRESS_LOGIN_PASSWORD
+REACT_APP_ATLAS_APP_ID
+```
