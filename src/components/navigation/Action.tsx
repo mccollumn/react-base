@@ -100,6 +100,7 @@ const NavAction = ({
     return (
       <ListItemButton
         selected={selected}
+        aria-label={action.ariaLabel}
         onClick={onClick}>
         <Tooltip title={action.label || ''}>
           <ListItemIcon>{action.icon}</ListItemIcon>
