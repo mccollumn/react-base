@@ -4,7 +4,7 @@
   "homepage": "https://mccollumn.github.io/react-base/",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.7.1",
+    "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.6.0",
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.6",
