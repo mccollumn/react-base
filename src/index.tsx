@@ -8,10 +8,6 @@ import { theme } from "./theme";
 import { BrowserRouter } from "react-router-dom";
 
 const path = window.location.pathname;
-//let basename;
-//if (path.startsWith("/react-base")) {
-  //basename = "/react-base";
-//}
 
 ReactDOM.render(
   <React.StrictMode>
